@@ -1,6 +1,9 @@
 <?php
 
-namespace App\Http\Models;
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Str;
 
 class Personal extends Model {
     protected $table = 'personal';
@@ -16,6 +19,18 @@ class Personal extends Model {
         'email',
         'isDeleted',
     ];
+    public $casts = [
+        'isDeleted' => 'boolean',
+    ];
+
+    protected $dates = [
+        'FechaNacimiento',
+    ];
+
+    protected $primaryKey = 'uuid';
+    public $incrementing = false;
+    protected $keyType = 'string';
+
 
     protected $hidden = [
         'isDeleted'=> 'boolean',
