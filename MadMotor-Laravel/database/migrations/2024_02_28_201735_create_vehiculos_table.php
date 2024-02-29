@@ -18,7 +18,7 @@ return new class extends Migration
             $table->integer('year');
             $table->decimal('precio', 10,2)->default(0);
             $table->integer('cantidad');
-            $table->string('imagen');
+            $table->string('imagen')->default('https://cdn.autobild.es/sites/navi.axelspringer.es/public/bdc/dc/fotos/Ferrari_F8_Tributo_001_.jpg?tf=200x');
             $table->foreignId('categoria_id')->constrained('categorias');
             $table->boolean('isDeleted')->default(false);
             $table->timestamps();
