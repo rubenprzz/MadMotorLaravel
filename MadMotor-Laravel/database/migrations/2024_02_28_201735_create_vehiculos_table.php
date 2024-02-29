@@ -19,7 +19,7 @@ return new class extends Migration
             $table->decimal('precio', 10,2)->default(0);
             $table->integer('cantidad');
             $table->string('imagen');
-            $table->foreignId('categoria_id')->constrained('cantegorias');
+            $table->foreignId('categoria_id')->constrained('categorias');
             $table->boolean('isDeleted')->default(false);
             $table->timestamps();
         });
