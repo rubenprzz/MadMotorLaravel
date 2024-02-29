@@ -13,6 +13,14 @@ return new class extends Migration
     {
         Schema::create('vehiculos', function (Blueprint $table) {
             $table->id();
+            $table->string('marca');
+            $table->string('modelo');
+            $table->integer('year');
+            $table->decimal('precio', 10,2)->default(0);
+            $table->integer('cantidad');
+            $table->string('imagen');
+            $table->foreignId('categoria_id')->constrained('cantegorias');
+            $table->boolean('isDeleted')->default(false);
             $table->timestamps();
         });
     }

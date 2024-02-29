@@ -12,7 +12,7 @@ class Vehiculo extends Model
     public static string $IMAGEN_DEFAULT = 'https://images.pexels.com/photos/170811/pexels-photo-170811.jpeg';
     protected $table = 'vehiculos';
 
-    protected $fillable =[
+    protected $fillable = [
         'marca',
         'modelo',
         'year',
@@ -26,7 +26,7 @@ class Vehiculo extends Model
 
     public $timestamps = true;
 
-    protected $hidden=[
+    protected $hidden = [
         'isDeleted',
     ];
 
@@ -34,19 +34,87 @@ class Vehiculo extends Model
         'isDeleted' => 'boolean',
     ];
 
+    public function categoria()
+    {
+        return $this->belongsTo(Categoria::class);
+    }
+
     //Busquedas avanzadas
 
-    public function scopeMarca($query, $marca){
-        if($marca){
-            return $query->where('marca', 'LIKE', "%$marca%");
+    public function scopeMarca($query, $marca)
+    {
+        return $query->where('LOWER(marca) LIKE ? ', ['%' . strtolower($marca) . '%']);
+
+
+    }
+
+    public function scopeModelo($query, $modelo)
+    {
+        return $query->where('LOWER(modelo) LIKE ? ', ['%' . strtolower($modelo) . '%']);
+
+    }
+
+    public function scopeYearMin($query, $yearMin)
+    {
+        return $query->where('year', '>=', $yearMin);
+    }
+
+    public function scopeYearMax($query, $yearMax)
+    {
+        return $query->where('year', '<=', $yearMax);
+    }
+
+    public function scopeKmMin($query, $kmMin)
+    {
+        return $query->where('km', '>=', $kmMin);
+    }
+
+    public function scopeKmMax($query, $kmMax)
+    {
+        return $query->where('km', '<=', $kmMax);
+    }
+
+    public function scopePrecioMin($query, $precioMin)
+    {
+        if ($precioMin) {
+            return $query->where('precio', '>=', $precioMin);
         }
     }
 
-    public function scopeModelo($query, $modelo){
-        if($modelo){
-            return $query->where('modelo', 'LIKE', "%$modelo%");
+    public function scopePrecioMax($query, $precioMax)
+    {
+        if ($precioMax) {
+            return $query->where('precio', '<=', $precioMax);
         }
     }
 
+    public function scopeOrderByPrecioAcs($query)
+    {
+        return $query->orderBy('precio', 'asc');
+    }
 
+    public function scopeOrderByPrecioDesc($query)
+    {
+        return $query->orderBy('precio', 'desc');
+    }
+
+    public function scopeOrderByYearAcs($query)
+    {
+        return $query->orderBy('year', 'asc');
+    }
+
+    public function scopeOrderByYearDesc($query)
+    {
+        return $query->orderBy('year', 'desc');
+    }
+
+    public function scopeOrderByKmAcs($query)
+    {
+        return $query->orderBy('km', 'asc');
+    }
+
+    public function scopeOrderByKmDesc($query)
+    {
+        return $query->orderBy('km', 'desc');
+    }
 }
