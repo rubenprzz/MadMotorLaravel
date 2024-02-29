@@ -47,4 +47,9 @@ class Categoria extends Model
     {
         return $this->hasMany(Vehiculo::class);
     }
+    public function piezas()
+
+    {
+        return $this->hasMany(Pieza::class);
+    }
 }

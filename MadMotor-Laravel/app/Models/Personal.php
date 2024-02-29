@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
 
 class Personal extends Authenticate {
+
     protected $table = 'personal';
     protected $fillable = [
         'nombre',
