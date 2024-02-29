@@ -15,7 +15,7 @@ class VehiculoSeeder extends Seeder
     {
         DB::table('vehiculos')->insert([
             [
-                'marca' => 'Ferrarri',
+                'marca' => 'Ferrari',
                 'modelo' => 'F8',
                 'year' => 2021,
                 'precio' => 1000000,
