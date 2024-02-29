@@ -2,10 +2,11 @@
 
 namespace App\Models;
 
+use App\Http\Middleware\Authenticate;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
 
-class Personal extends Model {
+class Personal extends Authenticate {
     protected $table = 'personal';
     protected $fillable = [
         'nombre',
@@ -17,6 +18,8 @@ class Personal extends Model {
         'sueldo',
         'iban',
         'email',
+        'password',
+        'rol',
         'isDeleted',
     ];
     public $casts = [
@@ -34,6 +37,8 @@ class Personal extends Model {
 
     protected $hidden = [
         'isDeleted'=> 'boolean',
+        'password',
+        'remember_token',
     ];
 
     public static function boot() {
