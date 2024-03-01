@@ -27,13 +27,6 @@ class CategoriaSeeder extends Seeder
             ['nombre' => 'Coupé'],
             ['nombre' => 'Eléctricos'],
             ['nombre' => 'Híbridos'],
-            ['nombre' => 'Pickup'],
-            ['nombre' => 'Familiar'],
-            ['nombre' => 'Van'],
-            ['nombre' => 'Convertible'],
-            ['nombre' => 'Coupé'],
-            ['nombre' => 'Eléctricos'],
-            ['nombre' => 'Híbridos'],
         ]);
     }
 }
