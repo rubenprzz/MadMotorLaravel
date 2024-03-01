@@ -25,6 +25,7 @@ return new class extends Migration
             $table->string('password');
             $table->string('rol')->default('empleado');
             $table->boolean('isDeleted')->default(false);
+            $table->rememberToken();
             $table->timestamps();
         });
     }

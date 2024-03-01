@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string('dni')->unique();
             $table->string('imagen')->default('https://via.placeholder.com/150');
             $table->boolean('isDeleted')->default(false);
+            $table->rememberToken();
             $table->timestamps();
         });
     }
