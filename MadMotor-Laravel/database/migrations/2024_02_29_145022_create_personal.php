@@ -18,12 +18,12 @@ return new class extends Migration
             $table->string('fecha_nacimiento');
             $table->string('dni')->unique();
             $table->string('direccion');
-            $table->number('telefono');
-            $table->number('sueldo');
+            $table->integer('telefono');
+            $table->decimal('sueldo');
             $table->string('iban');
             $table->string('email')->unique();
             $table->string('password');
-            $table->enum('rol');
+            $table->string('rol')->default('empleado');
             $table->boolean('isDeleted')->default(false);
             $table->timestamps();
         });

@@ -44,7 +44,6 @@ class Personal extends Authenticate {
 
     public static function boot() {
         parent::boot();
-
         static::creating(function ($personal) {
             $personal->uuid = Str::uuid();
         });
