@@ -1,11 +1,11 @@
-
 <header
     id="landing-header"
     class="py-3 px-10 flex items-center fixed top-0 w-full justify-between z-40 text-white"
 >
     <div class="flex flex-grow basis-0">
-        <a href="./"><img class="h-50 w-50 transition-colors duration-500"
-                          src="{{asset('images/logo.svg')}}" alt="logo"></a>
+        <a href="./">
+
+        </a>
     </div>
 
     <nav class="hidden xl:block sm:hidden">

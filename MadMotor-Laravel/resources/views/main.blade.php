@@ -8,6 +8,7 @@
     <link href="{{asset('css/app.css')}}" rel="stylesheet">
     <title> {{config('app.name', 'MadMotor')}} </title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://rsms.me/inter/inter.css">
     <link href="{{asset('favicon.ico')}}" rel="icon" type="png">
     <style>
     </style>
