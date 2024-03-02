@@ -3,7 +3,7 @@
     <section class="landing-section bg-black h-screen w-screen text-center overflow-hidden relative">
         <div class="z-30 relative h-full flex flex-col">
             <header class="">
-                <h2 class="text-blue pt-40 text-[59px] font-medium">MADMOTOR</h2>
+                <h2 class="text-white pt-40 text-[59px] font-bold font-mono">MADMOTOR</h2>
                 <p class=" text-white text-sm">TU CONCESIONARIO DE CONFIANZA</p>
             </header>
             <footer class="flex flex-col flex-grow justify-end w-1/4 mx-auto pb-20">

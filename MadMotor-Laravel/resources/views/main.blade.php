@@ -9,11 +9,11 @@
     <title> {{config('app.name', 'MadMotor')}} </title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://rsms.me/inter/inter.css">
-    <link href="{{asset('favicon.ico')}}" rel="icon" type="png">
+    <link href="{{asset('images/logo.png')}}" rel="icon" type="png">
     <style>
     </style>
 </head>
-<body>
+<body class=" snap-y snap-mandatory relative w-full h-screen overflow-y-auto overflow-x-hidden">
 @include('header')
 
 @yield('content')
@@ -25,5 +25,7 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"
         integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF"
         crossorigin="anonymous"></script>
+
+
 </body>
 </html>
