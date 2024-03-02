@@ -27,6 +27,9 @@ class CategoriaSeeder extends Seeder
             ['nombre' => 'Coupé'],
             ['nombre' => 'Eléctricos'],
             ['nombre' => 'Híbridos'],
+            ['nombre' => 'Freno'],
+            ['nombre' => 'Filtros'],
+            ['nombre' => 'Bujias']
         ]);
     }
 }
