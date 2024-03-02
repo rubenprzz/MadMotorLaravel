@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
+use Ramsey\Uuid\Uuid;
 
 class PiezaSeeder extends Seeder
 {
@@ -13,7 +14,8 @@ class PiezaSeeder extends Seeder
     public function run(): void
     {
         DB::table('piezas')->insert([
-            [
+            ['id' => Uuid::uuid4(),
+
                 'nombre' => 'Filtro de aire',
                 'precio' => 20.50,
                 'descripcion' => 'Filtro de aire de alta calidad para motores de gasolina.',
@@ -24,7 +26,8 @@ class PiezaSeeder extends Seeder
                 'created_at' => now(),
                 'updated_at' => now()
             ],
-            [
+            ['id'=> Uuid::uuid4(),
+
                 'nombre' => 'Pastillas de freno',
                 'precio' => 35.75,
                 'descripcion' => 'Pastillas de freno cerámicas para un frenado suave y eficiente.',
@@ -35,7 +38,7 @@ class PiezaSeeder extends Seeder
                 'created_at' => now(),
                 'updated_at' => now()
             ],
-            [
+            ['id'=> Uuid::uuid4(),
                 'nombre' => 'Bujías de encendido',
                 'precio' => 8.99,
                 'descripcion' => 'Bujías de encendido de platino para una chispa más potente y duradera.',
