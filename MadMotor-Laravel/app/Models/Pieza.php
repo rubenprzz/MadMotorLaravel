@@ -16,9 +16,17 @@ class Pieza extends Model
         'descripcion',
         'cantidad',
         'imagen',
-        'category_id'
+        'categoria_id',
+        'isDeleted'
 
 
+    ];
+    protected $hidden = [
+        'isDeleted',
+    ];
+
+    protected $casts = [
+        'isDeleted' => 'boolean',
     ];
 
     public function category()

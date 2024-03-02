@@ -53,7 +53,7 @@ class PiezaController extends Controller
         $pieza->image = $pieza::$IMAGE_DEFAULT;
         $pieza->category_id = $request->category_id;
         $pieza->save();
-        flash('Pieza creado correctamente')->success();
+        flash('Pieza creada correctamente')->success();
         return redirect()->route('piezas.index');
     }
 
@@ -153,10 +153,10 @@ class PiezaController extends Controller
                 Storage::delete($imagePath);
             }
             $pieza->delete();
-            flash('Pieza eliminado correctamente')->success();
+            flash('Pieza eliminada correctamente')->success();
             return redirect()->route('piezas.index');
         } else {
-            flash('Pieza no encontrado')->error();
+            flash('Pieza no encontrada')->error();
             return redirect()->route('piezas.index');
         }
     }
