@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('personal', function (Blueprint $table) {
-            $table->uuid('id')->primary();
+            $table->id();
             $table->string('nombre');
             $table->string('apellidos');
             $table->string('fecha_nacimiento');
@@ -23,7 +23,7 @@ return new class extends Migration
             $table->string('iban');
             $table->string('email')->unique();
             $table->string('password');
-            $table->string('rol')->default('empleado');
+            $table->enum('role', ['personal', 'admin'])->default('personal');
             $table->boolean('isDeleted')->default(false);
             $table->rememberToken();
             $table->timestamps();
