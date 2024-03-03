@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Personal\PersonalAuthController;
 
 
-Route::get('/', 'App\Http\Controllers\VehiculoController@hero')->name('vehiculos.index');
+Route::get('/', 'App\Http\Controllers\VehiculoController@hero')->name('vehiculos.hero');
 
 
 Auth::routes();
