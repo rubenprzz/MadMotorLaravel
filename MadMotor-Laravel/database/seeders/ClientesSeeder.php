@@ -14,7 +14,6 @@ class ClientesSeeder extends Seeder
     public function run(): void
     {
         DB::table('clientes')->insert([[
-            'id' => 1,
             'nombre' => 'Paco',
             'email'=>'paco2@Paco1234.com',
             'password' => '$2y$12$Su01nVy36tGMGbFjBhk4HugNrj9MoasmS0IUO5/mzuaq4WwrIkC2q',

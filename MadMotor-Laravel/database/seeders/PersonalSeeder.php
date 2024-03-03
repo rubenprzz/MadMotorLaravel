@@ -16,7 +16,6 @@ class PersonalSeeder extends Seeder
     {
         DB::table('personal')->insert([
             [
-                'id'=> 1,
                 'nombre' => 'Ruben',
                 'apellidos' => 'Fernandez Perez',
                 'fecha_nacimiento' => '1990-01-01',
@@ -29,7 +28,6 @@ class PersonalSeeder extends Seeder
                 'password' => '$2y$12$Su01nVy36tGMGbFjBhk4HugNrj9MoasmS0IUO5/mzuaq4WwrIkC2q',
             ],
             [
-                'id'=> 2,
                 'nombre' => 'Miguel',
                 'apellidos' => 'Vicario Rubio',
                 'fecha_nacimiento' => '1990-01-01',
@@ -42,7 +40,6 @@ class PersonalSeeder extends Seeder
                 'password' => '$2y$12$Su01nVy36tGMGbFjBhk4HugNrj9MoasmS0IUO5/mzuaq4WwrIkC2q',
             ],
             [
-                'id'=> 3,
                 'nombre' => 'Jose',
                 'apellidos' => 'Punto Random',
                 'fecha_nacimiento' => '1990-01-01',
@@ -55,7 +52,6 @@ class PersonalSeeder extends Seeder
                 'password' => '$2y$12$Su01nVy36tGMGbFjBhk4HugNrj9MoasmS0IUO5/mzuaq4WwrIkC2q',
             ],
             [
-                'id'=> 4,
                 'nombre' => 'Moha',
                 'apellidos' => 'El Kasmi Sanchez',
                 'fecha_nacimiento' => '1990-01-01',
@@ -69,7 +65,6 @@ class PersonalSeeder extends Seeder
             ],
             [
 
-                'id'=> 5,
                 'nombre' => 'Luis',
                 'apellidos' => 'Robles Garcia',
                 'fecha_nacimiento' => '1990-01-01',
