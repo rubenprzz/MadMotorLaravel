@@ -1,13 +1,13 @@
 <?php
 
+use App\Http\Controllers\VehiculoController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Personal\PersonalAuthController;
 
 
-Route::get('/', function () {
-    return view('hero');
-});
+Route::get('/', 'App\Http\Controllers\VehiculoController@hero')->name('vehiculos.index');
+
 
 Auth::routes();
 

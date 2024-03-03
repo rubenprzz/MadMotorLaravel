@@ -2,11 +2,18 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Pieza;
 use App\Models\Vehiculo;
 use Illuminate\Http\Request;
 
 class VehiculoController extends Controller
 {
+    public function hero()
+    {
+        $vehiculos = Vehiculo::all()->take(6); //take(6) para que solo muestre 6 vehiculos (para que no se vea tan cargado el home
+        $piezas = Pieza::all()->take(6); //take(6) para que solo muestre 6 piezas (para que no se vea tan cargado el home
+        return view('hero')->with('vehiculos', $vehiculos)->with('piezas', $piezas);
+    }
     public function index(Request $request)
     {
         $query = Vehiculo::query();
@@ -43,7 +50,7 @@ class VehiculoController extends Controller
             $query->precioMax($request->precioMax);
         }
 
-        if ($request->has('orden')){
+        if ($request->has('orden')) {
             $orden = $request->orden;
             switch ($orden) {
                 case 'precioDesc':
@@ -68,7 +75,9 @@ class VehiculoController extends Controller
         }
 
         $vehiculos = $query->get();
+        $piezas = Pieza::all();
 
-        return response()->json($vehiculos);
+
+        return view('hero')->with('vehiculos', $vehiculos)->with('piezas', $piezas);
     }
 }
