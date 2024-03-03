@@ -4,7 +4,7 @@
 >
     <div class="flex flex-grow basis-0">
         <a href="./">
-            <img src="{{asset('images/logo.png')}}" alt="MadMotor" class="h-10" />
+            <img src="{{asset('images/logo.png')}}" alt="MadMotor" class="h-10"/>
         </a>
     </div>
 
@@ -12,8 +12,10 @@
         <ul
             class="flex text-lg transition-colors duration-500 text-current font-medium inline-block px-4 py-2 space-x-4"
         >
-            <li><a class="transition-colors duration-500 text-current font-medium inline-block px-4 py-2" href="#">Vehículos</a></li>
-            <li><a class="transition-colors duration-500 text-current font-medium inline-block px-4 py-2" href="#">Piezas</a></li>
+            <li><a class="transition-colors duration-500 text-current font-medium inline-block px-4 py-2" href="#">Vehículos</a>
+            </li>
+            <li><a class="transition-colors duration-500 text-current font-medium inline-block px-4 py-2" href="#">Piezas</a>
+            </li>
 
         </ul>
     </nav>
@@ -22,9 +24,39 @@
         <ul
             class="flex text-lg transition-colors duration-500 text-current font-medium inline-block px-4 py-2 space-x-4"
         >
-            <li class="hidden xl:block sm:hidden transition-colors duration-500 text-current font-medium inline-block px-3 py-2"><a href="#">Carrito</a></li>
-            <li class=" transition-colors duration-500 text-current font-medium inline-block px-1 py-2 hidden xl:block sm:hidden"><a href="#">Iniciar Sesión</a></li>
-            <li><a class="transition-colors duration-500 text-current font-medium inline-block px-3 py-2" href="#">Registrarse</a></li>
+            @guest
+                <li class=" transition-colors duration-500 text-current font-medium inline-block px-3 py-2"><a href=" ">Carrito</a>
+                </li>
+
+
+                <li class=" transition-colors duration-500 text-current font-medium inline-block px-1 py-2  "><a
+                        href="{{route('login')}}">Iniciar Sesión</a></li>
+                <li><a class="transition-colors duration-500 text-current font-medium inline-block px-3 py-2" href="{{route('register')}}">Registrarse</a>
+                </li>
+            @endguest
+
+            @auth
+                <li class=" transition-colors duration-500 text-current font-medium inline-block px-2 py-2"><a href="#">Carrito</a>
+                </li>
+
+                <li class=" transition-colors duration-500 text-current font-medium inline-block px-2 py-2"><a href="{{route('home')}} ">Mi
+                        Cuenta</a>
+                </li>
+                @if(Auth::user()->role === 'admin')
+                    <li class=" transition-colors duration-500 text-current font-medium inline-block px-2 py-2"><a
+                            href=" ">Panel de Administrador</a>
+                    </li>
+                @endif
+                <li class=" transition-colors duration-500 text-current font-medium inline-block px-2 py-2"><a
+                        href="{{route('logout')}}"
+                        onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                        Cerrar Sesión</a>
+                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                        @csrf
+                    </form>
+            @endauth
+
+
         </ul>
     </nav>
 
