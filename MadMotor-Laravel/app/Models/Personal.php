@@ -2,11 +2,16 @@
 
 namespace App\Models;
 
-use App\Http\Middleware\Authenticate;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Str;
 
-class Personal extends Authenticate {
+use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Str;
+use Laravel\Sanctum\HasApiTokens;
+
+class Personal extends Authenticatable {
+
+    use HasApiTokens, HasFactory, Notifiable;
 
     protected $table = 'personal';
     protected $fillable = [
@@ -31,21 +36,9 @@ class Personal extends Authenticate {
         'FechaNacimiento',
     ];
 
-    protected $primaryKey = 'uuid';
-    public $incrementing = false;
-    protected $keyType = 'string';
-
 
     protected $hidden = [
-        'isDeleted'=> 'boolean',
         'password',
         'remember_token',
     ];
-
-    public static function boot() {
-        parent::boot();
-        static::creating(function ($personal) {
-            $personal->uuid = Str::uuid();
-        });
-    }
 }
