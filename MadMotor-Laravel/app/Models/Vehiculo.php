@@ -9,7 +9,7 @@ class Vehiculo extends Model
 {
     use HasFactory;
 
-    public static string $IMAGEN_DEFAULT = 'https://cdn.autobild.es/sites/navi.axelspringer.es/public/bdc/dc/fotos/Ferrari_F8_Tributo_001_.jpg?tf=200x';
+    public static string $IMAGEN_DEFAULT = 'https://img.freepik.com/foto-gratis/conduccion-automoviles-deportivos-carretera-asfaltada-noche-ia-generativa_188544-8052.jpg?w=900&t=st=1709483786~exp=1709484386~hmac=578131e5425057fbb577ed5de832c13972b80d9dc5e371dafccacbe6c5ce23a6';
     protected $table = 'vehiculos';
 
     protected $fillable = [

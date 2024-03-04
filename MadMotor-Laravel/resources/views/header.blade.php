@@ -31,7 +31,8 @@
 
                 <li class=" transition-colors duration-500 text-current font-medium inline-block px-1 py-2  "><a
                         href="{{route('login')}}">Iniciar Sesión</a></li>
-                <li><a class="transition-colors duration-500 text-current font-medium inline-block px-3 py-2" href="{{route('register')}}">Registrarse</a>
+                <li><a class="transition-colors duration-500 text-current font-medium inline-block px-3 py-2"
+                       href="{{route('register')}}">Registrarse</a>
                 </li>
             @endguest
 
@@ -39,8 +40,9 @@
                 <li class=" transition-colors duration-500 text-current font-medium inline-block px-2 py-2"><a href="#">Carrito</a>
                 </li>
 
-                <li class=" transition-colors duration-500 text-current font-medium inline-block px-2 py-2"><a href="{{route('home')}} ">Mi
-                        Cuenta</a>
+                <li class=" transition-colors duration-500 text-current font-medium inline-block px-2 py-2"><a
+                        href="{{route('cliente.perfil', $id=(Auth::user()->id ))}} ">
+                        {{Auth::user()->nombre}}</a>
                 </li>
                 @if(Auth::user()->role === 'admin')
                     <li class=" transition-colors duration-500 text-current font-medium inline-block px-2 py-2"><a

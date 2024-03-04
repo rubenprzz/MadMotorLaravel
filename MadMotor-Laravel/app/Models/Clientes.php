@@ -11,6 +11,7 @@ use Laravel\Sanctum\HasApiTokens;
 class Clientes extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
+
     protected $fillable = [
         'nombre',
         'email',
