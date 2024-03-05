@@ -11,7 +11,6 @@
         </div>
         <div class="w-full md:w-2/3 bg-gray-300 rounded-lg flex flex-col space-y-2 p-3">
             <div class="flex justify-between item-center">
-                <p class="text-gray-500 font-medium hidden md:block">{{$pieza->id}}</p>
                 <div class="flex items-center">
 
                     <p class="text-gray-600 font-bold text-sm ml-1">
@@ -33,6 +32,10 @@
                 {{$pieza->cantidad}}
                 <span class="font-normal text-gray-600 text-base">uds</span>
             </p>
+            <a href="{{route('piezas.show',$pieza->id)}}"><button class="bg-green  hover:bg-blue-500 text-white-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded">
+                    Ver detalles
+                </button></a>
+
         </div>
     </div>
     @endforeach
