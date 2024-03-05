@@ -21,6 +21,3 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-
-//Ruta para ver las view del personal
-Route::get('/personal', [App\Http\Controllers\PersonalController::class, 'index'])->name('personal.index');
