@@ -12,9 +12,11 @@
         <ul
             class="flex text-lg transition-colors duration-500 text-current font-medium inline-block px-4 py-2 space-x-4"
         >
-            <li><a class="transition-colors duration-500 text-current font-medium inline-block px-4 py-2" href="{{route('vehiculos.index')}}">Vehículos</a>
+            <li><a class="transition-colors duration-500 text-current font-medium inline-block px-4 py-2"
+                   href="{{route('vehiculos.index')}}">Vehículos</a>
             </li>
-            <li><a class="transition-colors duration-500 text-current font-medium inline-block px-4 py-2" href="{{route('piezas.index')}}">Piezas</a>
+            <li><a class="transition-colors duration-500 text-current font-medium inline-block px-4 py-2"
+                   href="{{route('piezas.index')}}">Piezas</a>
             </li>
 
         </ul>
