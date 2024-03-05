@@ -9,7 +9,7 @@ class Vehiculo extends Model
 {
     use HasFactory;
 
-    public static string $IMAGEN_DEFAULT = 'https://cdn.autobild.es/sites/navi.axelspringer.es/public/bdc/dc/fotos/Ferrari_F8_Tributo_001_.jpg?tf=200x';
+    public static string $IMAGEN_DEFAULT = 'https://img.freepik.com/foto-gratis/conduccion-automoviles-deportivos-carretera-asfaltada-noche-ia-generativa_188544-8052.jpg?w=900&t=st=1709483786~exp=1709484386~hmac=578131e5425057fbb577ed5de832c13972b80d9dc5e371dafccacbe6c5ce23a6';
     protected $table = 'vehiculos';
 
     protected $fillable = [
@@ -43,35 +43,42 @@ class Vehiculo extends Model
 
     public function scopeMarca($query, $marca)
     {
-        return $query->where('LOWER(marca) LIKE ? ', ['%' . strtolower($marca) . '%']);
-
+        return $query->whereRaw('LOWER(marca) LIKE ? ', ['%' . strtolower($marca) . '%']);
 
     }
 
     public function scopeModelo($query, $modelo)
     {
-        return $query->where('LOWER(modelo) LIKE ? ', ['%' . strtolower($modelo) . '%']);
+        return $query->whereRaw('LOWER(modelo) LIKE ? ', ['%' . strtolower($modelo) . '%']);
 
     }
 
     public function scopeYearMin($query, $yearMin)
     {
-        return $query->where('year', '>=', $yearMin);
+        if ($yearMin) {
+            return $query->where('year', '>=', $yearMin);
+        }
     }
 
     public function scopeYearMax($query, $yearMax)
     {
-        return $query->where('year', '<=', $yearMax);
+        if ($yearMax) {
+            return $query->where('year', '<=', $yearMax);
+        }
     }
 
     public function scopeKmMin($query, $kmMin)
     {
-        return $query->where('km', '>=', $kmMin);
+        if ($kmMin) {
+            return $query->where('km', '>=', $kmMin);
+        }
     }
 
     public function scopeKmMax($query, $kmMax)
     {
-        return $query->where('km', '<=', $kmMax);
+        if ($kmMax) {
+            return $query->where('km', '<=', $kmMax);
+        }
     }
 
     public function scopePrecioMin($query, $precioMin)

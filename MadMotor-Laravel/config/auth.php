@@ -17,6 +17,11 @@ return [
         'guard' => 'web',
         'passwords' => 'clientes',
     ],
+    'personal'=>[
+        'driver' => 'eloquent',
+        'model' => App\Models\Personal::class,
+    ],
+
 
     /*
     |--------------------------------------------------------------------------
@@ -39,6 +44,10 @@ return [
         'web' => [
             'driver' => 'session',
             'provider' => 'clientes',
+        ],
+        'personal' => [
+            'driver' => 'session',
+            'provider' => 'personal',
         ],
     ],
 
@@ -63,6 +72,10 @@ return [
         'clientes' => [
             'driver' => 'eloquent',
             'model' => App\Models\Clientes::class,
+        ],
+        'personal' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\Personal::class,
         ],
 
         // 'users' => [
@@ -96,6 +109,10 @@ return [
             'table' => 'password_reset_tokens',
             'expire' => 60,
             'throttle' => 60,
+        ],
+        'personal' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\Personal::class,
         ],
     ],
 
