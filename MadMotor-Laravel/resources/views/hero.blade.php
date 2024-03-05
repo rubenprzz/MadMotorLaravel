@@ -19,7 +19,6 @@
                src="{{asset('images/video2.webm')}}"></video>
     </section>
 
-    <!-- Vehiculos -->
     <section class="bg-gray-900 text-center overflow-hidden relative">
         <h2 class="text-center text-white text-4xl font-bold mt-10">Nuestros vehículos</h2>
         <p class="text-center text-white text-sm mb-10">Descubre nuestra amplia gama de vehículos</p>
@@ -152,7 +151,7 @@
                 @endforeach
             </div>
         @endif
-        <div class="flex flex-row justify-center">
+        <div class="flex flex-row justify-center mb-5">
             <div class="flex flex-row justify-center">
                 <a href="#"
                    class="border-3 border-white bg-white/5 backdrop-blur-sm text-sm rounded font-medium text-white px-12 py-2 inline-block hover:bg-white hover:text-black transition-colors my-hover-class">
