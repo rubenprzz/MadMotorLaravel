@@ -155,6 +155,7 @@ return array(
     'Database\\Seeders\\ClientesSeeder' => $baseDir . '/database/seeders/ClientesSeeder.php',
     'Database\\Seeders\\DatabaseSeeder' => $baseDir . '/database/seeders/DatabaseSeeder.php',
     'Database\\Seeders\\PersonalSeeder' => $baseDir . '/database/seeders/PersonalSeeder.php',
+    'Database\\Seeders\\PiezaSeeder' => $baseDir . '/database/seeders/PiezaSeeder.php',
     'Database\\Seeders\\VehiculoSeeder' => $baseDir . '/database/seeders/VehiculoSeeder.php',
     'DateError' => $vendorDir . '/symfony/polyfill-php83/Resources/stubs/DateError.php',
     'DateException' => $vendorDir . '/symfony/polyfill-php83/Resources/stubs/DateException.php',
