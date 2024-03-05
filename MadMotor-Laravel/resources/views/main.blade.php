@@ -15,9 +15,7 @@
 </head>
 <body class=" snap-y snap-mandatory relative w-full h-screen overflow-y-auto overflow-x-hidden">
 @include('header')
-
 @yield('content')
-
 
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"
         integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p"

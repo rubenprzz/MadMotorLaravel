@@ -1,14 +1,14 @@
-@extends('main')
+@extends('layouts.app')
 
 @section('content')
-<div class="container mt-5 pt-5">
+<div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header">{{ __('Login') }}</div>
+                <div class="card-header">{{ __('Login En personal') }}</div>
 
                 <div class="card-body">
-                    <form method="POST" action="{{ route('login') }}">
+                    <form method="POST" action="{{ route('personal.check') }}">
                         @csrf
 
                         <div class="row mb-3">

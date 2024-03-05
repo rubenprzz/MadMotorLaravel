@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\Request;
 use App\Models\Clientes;
 use Illuminate\Support\Facades\Log;
@@ -41,7 +42,7 @@ class ClientesController extends Controller
         ]);
         Log::info('Se ha validado correctamente el cliente');
         try {
-            $cliente= new Clientes($request->all());
+            $cliente = new Clientes($request->all());
             $cliente->role = 'cliente';
             Log::info('Se ha va a crear el cliente correctamente con los siguientes datos: ' . json_encode($cliente));
             $cliente->save();
@@ -53,38 +54,47 @@ class ClientesController extends Controller
         }
     }
 
-    public function show(string $id)
+    /**
+     * @throws AuthorizationException
+     */
+    public function show($id)
     {
+        $cliente = Clientes::find($id);
+        $this->authorize('view', $cliente);
+
         try {
-            $cliente= Clientes::find($id);
+            $cliente = Clientes::find($id);
             if ($cliente == null) {
                 Log::error('No se ha encontrado el cliente con el id: ' . $id);
                 return response()->json(['error' => 'No se ha encontrado el cliente'], 404);
             }
             Log::info('Se ha obtenido el cliente correctamente');
-            return response()->json(['cliente' => $cliente, 'status' => 'ok']);
+            return view('cliente.show')->with('cliente', $cliente);
 
         } catch (\Exception $e) {
             Log::error('Error al obtener el cliente: ' . $e->getMessage());
-            return response()->json(['error' => $e->getMessage()], 404);
+            return response()->json(['error2' => $e->getMessage()], 404);
         }
     }
 
-    public function edit(string $id)
+    public function edit(Request $request, $id)
     {
+        $cliente = Clientes::find($id);
+        $this->authorize('update', $cliente);
         try {
-            $cliente= Clientes::find($id);
+            $cliente = Clientes::find($id);
             if ($cliente == null || $cliente->isDeleted) {
                 Log::error('No se ha encontrado el cliente con el id: ' . $id);
                 return response()->json(['error' => 'No se ha encontrado el cliente'], 404);
             }
-            Log::info('Se ha obtenido el cliente correctamente para editar');
-            return response()->json(['cliente' => $cliente, 'status' => 'ok']);
-
+            $cliente->update($request->all());
+            Log::info('Se ha obtenido el cliente para actualizar correctamente');
+            return view('cliente.edit')->with('cliente', $cliente);
         } catch (\Exception $e) {
             Log::error('Error al obtener el cliente para actualizar : ' . $e->getMessage());
             return response()->json(['error' => $e->getMessage()], 404);
         }
+
     }
 
     public function update(Request $request, string $id)
@@ -93,12 +103,10 @@ class ClientesController extends Controller
         $request->validate([
             'nombre' => 'required|string|max:255|min:3',
             'apellido' => 'required|string|max:255|min:3',
-            'direccion' => 'required|string|max:255|min:3',
-            'codigo_postal' => 'required|min:5|max:5|regex:/^[0-9]{5}$/',
         ]);
         Log::info('Se ha validado correctamente el cliente');
         try {
-            $cliente= Clientes::find($id);
+            $cliente = Clientes::find($id);
             if ($cliente == null || $cliente->isDeleted) {
                 Log::error('No se ha encontrado el cliente con el id: ' . $id);
                 return response()->json(['error' => 'No se ha encontrado el cliente'], 404);
@@ -108,7 +116,7 @@ class ClientesController extends Controller
             Log::info('Se va a actualizar el cliente con los siguientes datos: ' . json_encode($cliente));
             $cliente->save();
             Log::info('Se ha actualizado el cliente correctamente');
-            return response()->json(['status' => 'ok', 'cliente' => $cliente]);
+            return redirect()->route('cliente.perfil', ['id' => $id]);
         } catch (\Exception $e) {
             Log::error('Error al actualizar el cliente: ' . $e->getMessage());
             return response()->json(['error' => $e->getMessage()], 500);
@@ -118,7 +126,7 @@ class ClientesController extends Controller
     public function destroy(string $id)
     {
         try {
-            $cliente= Clientes::find($id);
+            $cliente = Clientes::find($id);
             if ($cliente == null) {
                 Log::error('No se ha encontrado el cliente con el id: ' . $id);
                 return response()->json(['error' => 'No se ha encontrado el cliente'], 404);
@@ -133,10 +141,11 @@ class ClientesController extends Controller
             return response()->json(['error' => $e->getMessage()], 500);
         }
     }
+
     public function removeSoft(string $id)
     {
         try {
-            $cliente= Clientes::find($id);
+            $cliente = Clientes::find($id);
             if ($cliente == null) {
                 Log::error('No se ha encontrado el cliente con el id: ' . $id);
                 return response()->json(['error' => 'No se ha encontrado el cliente'], 404);

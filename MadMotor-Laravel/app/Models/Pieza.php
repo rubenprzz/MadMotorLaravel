@@ -9,7 +9,7 @@ class Pieza extends Model
 {
     use HasFactory;
 
-    public static string $IMAGE_DEFAULT = 'https://placehold.co/400x400';
+    public static string $IMAGE_DEFAULT = 'https://th.bing.com/th/id/OIP.KfJHc987dlOGUVkAhwwcGAHaE8?rs=1&pid=ImgDetMain';
     protected $fillable = [
         'nombre',
         'precio',
