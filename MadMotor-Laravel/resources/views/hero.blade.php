@@ -79,7 +79,7 @@
 
         <div class="flex flex-row justify-center pb-3">
             <div class="flex flex-row justify-center">
-                <a href="#"
+                <a href="{{route('vehiculos.index')}}"
                    class="border-3 border-white bg-white/5 backdrop-blur-sm text-sm rounded font-medium text-white px-12 py-2 inline-block hover:bg-white hover:text-black transition-colors my-hover-class">
                     Ver todos los vehículos
                 </a>

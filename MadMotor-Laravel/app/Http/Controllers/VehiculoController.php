@@ -78,6 +78,6 @@ class VehiculoController extends Controller
         $piezas = Pieza::all();
 
 
-        return view('hero')->with('vehiculos', $vehiculos)->with('piezas', $piezas);
+        return view('vehiculos.index')->with('vehiculos', $vehiculos)->with('piezas', $piezas);
     }
 }
