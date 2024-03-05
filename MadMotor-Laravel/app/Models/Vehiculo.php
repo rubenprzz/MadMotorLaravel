@@ -43,35 +43,42 @@ class Vehiculo extends Model
 
     public function scopeMarca($query, $marca)
     {
-        return $query->where('LOWER(marca) LIKE ? ', ['%' . strtolower($marca) . '%']);
-
+        return $query->whereRaw('LOWER(marca) LIKE ? ', ['%' . strtolower($marca) . '%']);
 
     }
 
     public function scopeModelo($query, $modelo)
     {
-        return $query->where('LOWER(modelo) LIKE ? ', ['%' . strtolower($modelo) . '%']);
+        return $query->whereRaw('LOWER(modelo) LIKE ? ', ['%' . strtolower($modelo) . '%']);
 
     }
 
     public function scopeYearMin($query, $yearMin)
     {
-        return $query->where('year', '>=', $yearMin);
+        if ($yearMin) {
+            return $query->where('year', '>=', $yearMin);
+        }
     }
 
     public function scopeYearMax($query, $yearMax)
     {
-        return $query->where('year', '<=', $yearMax);
+        if ($yearMax) {
+            return $query->where('year', '<=', $yearMax);
+        }
     }
 
     public function scopeKmMin($query, $kmMin)
     {
-        return $query->where('km', '>=', $kmMin);
+        if ($kmMin) {
+            return $query->where('km', '>=', $kmMin);
+        }
     }
 
     public function scopeKmMax($query, $kmMax)
     {
-        return $query->where('km', '<=', $kmMax);
+        if ($kmMax) {
+            return $query->where('km', '<=', $kmMax);
+        }
     }
 
     public function scopePrecioMin($query, $precioMin)
