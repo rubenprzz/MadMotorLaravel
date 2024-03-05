@@ -15,7 +15,8 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 
 Route::group(['prefix' => 'perfil'], function () {
     Route::get('/{id}', [\App\Http\Controllers\ClientesController::class, 'show'])->name('cliente.perfil')->middleware('auth');
-    Route::put('/update', [\App\Http\Controllers\ClientesController::class, 'edit'])->name('cliente.update')->middleware('auth');
+    Route::get('/{id}/edit', [\App\Http\Controllers\ClientesController::class, 'edit'])->name('cliente.edit')->middleware('auth');
+    Route::put('/{id}', [\App\Http\Controllers\ClientesController::class, 'update'])->name('cliente.update')->middleware('auth');
 
 });
 

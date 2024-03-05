@@ -34,9 +34,9 @@ class ClientePolicy
     /**
      * Determine whether the user can update the model.
      */
-    public function update(Clientes $clientes, Clientes $clientes1): bool
+    public function update(Clientes $clientes, Clientes $clientes1)
     {
-        //
+        return $clientes->id == $clientes1->id ? Response::allow() : Response::denyWithStatus(404);
     }
 
     /**

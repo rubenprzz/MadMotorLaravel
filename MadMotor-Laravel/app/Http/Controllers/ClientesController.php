@@ -79,6 +79,8 @@ class ClientesController extends Controller
 
     public function edit(Request $request, $id)
     {
+        $cliente = Clientes::find($id);
+        $this->authorize('update', $cliente);
         try {
             $cliente = Clientes::find($id);
             if ($cliente == null || $cliente->isDeleted) {
@@ -87,8 +89,7 @@ class ClientesController extends Controller
             }
             $cliente->update($request->all());
             Log::info('Se ha obtenido el cliente para actualizar correctamente');
-            return redirect()->route('clientes.show', $cliente->id);
-
+            return view('cliente.edit')->with('cliente', $cliente);
         } catch (\Exception $e) {
             Log::error('Error al obtener el cliente para actualizar : ' . $e->getMessage());
             return response()->json(['error' => $e->getMessage()], 404);
@@ -102,8 +103,6 @@ class ClientesController extends Controller
         $request->validate([
             'nombre' => 'required|string|max:255|min:3',
             'apellido' => 'required|string|max:255|min:3',
-            'direccion' => 'required|string|max:255|min:3',
-            'codigo_postal' => 'required|min:5|max:5|regex:/^[0-9]{5}$/',
         ]);
         Log::info('Se ha validado correctamente el cliente');
         try {
@@ -117,7 +116,7 @@ class ClientesController extends Controller
             Log::info('Se va a actualizar el cliente con los siguientes datos: ' . json_encode($cliente));
             $cliente->save();
             Log::info('Se ha actualizado el cliente correctamente');
-            return response()->json(['status' => 'ok', 'cliente' => $cliente]);
+            return redirect()->route('cliente.perfil', ['id' => $id]);
         } catch (\Exception $e) {
             Log::error('Error al actualizar el cliente: ' . $e->getMessage());
             return response()->json(['error' => $e->getMessage()], 500);

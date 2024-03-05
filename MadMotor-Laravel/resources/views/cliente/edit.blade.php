@@ -3,7 +3,7 @@
 @section('title', 'Actualizar Perfil')
 
 @section('content')
-    <div class="container">
+    <div class="container mt-5 pt-5">
         <h1>Actualizar Cliente</h1>
 
         @if ($errors->any())
@@ -14,7 +14,7 @@
             </div>
         @endif
 
-        <form action="{{ route("cliente.edit", $cliente->id) }}" method="post">
+        <form action="{{ route("cliente.update", $cliente->id) }}" method="post">
             @csrf
             @method('PUT')
             <div class="form-group">
@@ -28,7 +28,7 @@
 
             <div class="form-group mb-3">
                 <label for="email">Correo:</label>
-                <input class="form-control" id="email" name="email" type="email" required value="{{$client->email}}">
+                <input class="form-control" id="email" name="email" type="email" required value="{{$cliente->email}}">
             </div>
 
             <button class="btn btn-primary mb-5" type="submit">Actualizar</button>

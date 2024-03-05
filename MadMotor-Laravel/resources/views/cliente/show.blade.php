@@ -17,7 +17,7 @@
             <label for="email">Correo:</label>
             <input class="form-control" id="email" name="email" type="email" required value="{{$cliente->email}}" disabled>
         </div>
-        <a class="btn btn-primary mb-5" href="{{ route('cliente.update', $cliente->id) }}">Editar</a>
+        <a class="btn btn-primary mb-5" href="{{ route('cliente.edit', $cliente->id) }}">Editar</a>
         <a class="btn btn-secondary mx-2 mb-5" href="{{ route('vehiculos.hero') }}">Volver</a>
     </div>
 
