@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ClientesController;
+use App\Http\Controllers\PersonalController;
 use App\Http\Controllers\VehiculoController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -24,7 +25,7 @@ Route::group(['prefix' => 'perfil'], function () {
 
 });
 
-Route::prefix('personal')->name('personal.')->group(function () {
+/*Route::prefix('personal')->name('personal.')->group(function () {
 
     Route::middleware(['guest:personal'])->group(function () {
         Route::view('/login', 'personal.login')->name('login');
@@ -34,5 +35,17 @@ Route::prefix('personal')->name('personal.')->group(function () {
     Route::middleware(['auth:personal'])->group(function () {
         Route::view('/home', 'personal.home')->name('home');
         Route::post('/logout', [PersonalAuthController::class, 'logout'])->name('logout');
+    });});*/
+
+    Route::group(['prefix' => 'personal'], function () {
+//        Route::get('/', [PersonalController::class, 'index'])->name('personal.index');
+        Route::get('/create', [PersonalController::class, 'create'])->name('personal.create');
+        Route::get('/show/{id}', [PersonalController::class, 'show'])->name('personal.show');
+        Route::get('/', [PersonalController::class, 'index'])->name('personal.search');
+//        Route::get('/{id}/edit', [PersonalController::class, 'edit'])->name('personal.edit')->middleware('auth');
+//        Route::get('/create', [PersonalController::class, 'create'])->name('personal.create')->middleware('auth');
+//        Route::get('/index', [PersonalController::class, 'index'])->name('personal.index')->middleware('auth');
+
+
     });
-});
+
