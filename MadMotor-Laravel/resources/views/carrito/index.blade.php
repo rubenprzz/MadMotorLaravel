@@ -1,6 +1,7 @@
 @php use App\Models\Vehiculo; @endphp
 @php use App\Models\Pieza; @endphp
 @extends('main')
+@section('title', 'Carrito de compra')
 @section('content')
     <section class="bg-gray-900 ">
         <div class=" pt-5 h-screen py-8">
@@ -33,7 +34,7 @@
                                                              alt="coche">
                                                     @endif
                                                 @else
-                                                    @if ($item['product']->imagen != Pieza::$IMAGEN_DEFAULT )
+                                                    @if ($item['product']->imagen != Pieza::$IMAGE_DEFAULT  )
                                                         <img src="{{ asset('storage/'.$item['product']->imagen) }}"
                                                              class="h-16 w-16 mr-4"
                                                              alt="coche">

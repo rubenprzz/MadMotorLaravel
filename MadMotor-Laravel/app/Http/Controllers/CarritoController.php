@@ -53,7 +53,13 @@ class CarritoController extends Controller
             }
             // Guardar el carrito en la sesión
             session()->put('cart', $cart);
-            return redirect()->route('vehiculos.index');
+
+            // Si es vehiculo redirigir a vehiculos.index y si es pieza a piezas.index
+            if ($type == 'vehiculo') {
+                return redirect()->route('vehiculos.index')->with('success', 'Vehiculo añadido al carrito');
+            } else if ($type == 'pieza') {
+                return redirect()->route('piezas.index')->with('success', 'Pieza añadida al carrito');
+            }
 
         }
     }

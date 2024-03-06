@@ -3,7 +3,7 @@
     class="py-3 px-10 flex items-center fixed top-0 w-full justify-between z-40 text-white border-b border-gray-400 bg-black/50 backdrop-blur-lg transition-colors duration-500 ease-in-out"
 >
     <div class="flex flex-grow basis-0">
-        <a href="./">
+        <a href="{{route('vehiculos.hero')}}">
             <img src="{{asset('images/logo.png')}}" alt="MadMotor" class="h-10"/>
         </a>
     </div>
