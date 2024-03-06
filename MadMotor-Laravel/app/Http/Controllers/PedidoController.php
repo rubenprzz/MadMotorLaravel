@@ -8,6 +8,7 @@ use App\Models\Pieza;
 use App\Models\Vehiculo;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Mail;
 
 class PedidoController extends Controller
 {
@@ -85,4 +86,5 @@ class PedidoController extends Controller
         $pdf = \PDF::loadView('pedido.pdf', compact('pedido'));
         return $pdf->download('pedido.pdf');
     }
+
 }
