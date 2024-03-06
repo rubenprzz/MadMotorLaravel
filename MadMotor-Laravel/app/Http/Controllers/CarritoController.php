@@ -5,15 +5,19 @@ namespace App\Http\Controllers;
 use App\Models\Pieza;
 use App\Models\Vehiculo;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class CarritoController extends Controller
 {
     public function index()
     {
         $cart = session()->get('cart', []);
-
+        $totalDelCarrito = array_sum(array_column($cart, 'line_total'));
+        $totalItems = array_sum(array_column($cart, 'quantity'));
         return view('carrito.index')->with([
-            'cart' => $cart
+            'cart' => $cart,
+            'totalDelCarrito' => $totalDelCarrito,
+            'totalItems' => $totalItems
         ]);
     }
 
@@ -76,17 +80,19 @@ class CarritoController extends Controller
         // Crear la clave del producto
         $key = $type . '-' . $id;
 
-        // Si el producto está en el carrito, eliminarlo
-        if (isset($cart[$key])) {
+
+        //Borrado de un articulo si ese articulo tiene mas de 1 cantidad se resta una adicha cnatida
+        if (isset($cart[$key]) && $cart[$key]['quantity'] > 1) {
+            $cart[$key]['quantity']--;
+            $cart[$key]['line_total'] = $cart[$key]['price'] * $cart[$key]['quantity'];
+        } else {
+            // Eliminar el producto del carrito
             unset($cart[$key]);
-
-            // Guardar el carrito actualizado en la sesión
-            session()->put('cart', $cart);
-            //mantenerse en la misma pagina
-            return redirect()->route('carrito.index')->with('success', 'Producto eliminado del carrito');
-
-
         }
+
+        session()->put('cart', $cart);
+
+        return redirect()->route('carrito.index')->with('success', 'Producto eliminado del carrito');
     }
 
 
