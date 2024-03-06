@@ -1,13 +1,10 @@
-@php use App\Models\Vehiculo; @endphp
-@php use App\Models\Pieza; @endphp
-
 @extends('main')
-@section('title', 'Carrito de compra')
+@section('title', 'Confirmación de compra')
 @section('content')
     <section class="bg-gray-900 ">
         <div class=" pt-5 h-screen py-8">
             <div class="container mx-auto mt-5 px-4">
-                <h1 class="text-2xl font-semibold text-white mb-4">Carrito de compra</h1>
+                <h1 class="text-2xl font-semibold text-white mb-4">Confirmación de compra</h1>
                 <div class="flex flex-col md:flex-row gap-4">
                     <div class="md:w-3/4">
                         <div class="bg-white rounded-lg shadow-md p-6 mb-4 overflow-y-auto" style="max-height: 60vh;">
@@ -33,7 +30,7 @@
                                 @foreach($cart as $item)
                                     <tr>
                                         <td class="py-4">
-                                            <div class="flex items-center">
+                                            <div class="flex items center">
                                                 @if($item['type'] == 'vehiculo')
                                                     @if ($item['product']->imagen != Vehiculo::$IMAGEN_DEFAULT )
                                                         <img src="{{ asset('storage/'.$item['product']->imagen) }}"
@@ -62,25 +59,24 @@
                                             </div>
                                         </td>
                                         <td class="py-4">
-                                            {{ $item['price'] }}€
+                                            <span class="font-semibold">{{ $item['product']->precio }} €</span>
                                         </td>
                                         <td class="py-4">
-                                            {{ $item['quantity'] }}
-
+                                            <span class="font-semibold">{{ $item['quantity'] }}</span>
                                         </td>
                                         <td class="py-4">
-                                            {{ $item['line_total'] }} €
+                                            <span class="font-semibold">{{ $item['product']->precio * $item['quantity'] }} €</span>
                                         </td>
                                         <td class="py-4">
-                                            @if($item['type'] == 'vehiculo')
-                                                <a class="btn btn-danger"
-                                                   href="{{route('carrito.delete',['id' => $item['product']->id, 'type' => 'vehiculo'] )}}">Borrar
-                                                    Item</a>
-                                            @else
-                                                <a class="btn btn-danger"
-                                                   href="{{route('carrito.delete',['id' => $item['product']->id, 'type' => 'pieza'] )}}">Borrar
-                                                    Item</a>
-                                            @endif
+                                            <form action="
+                                            " method="post">
+                                                @csrf
+                                                <input type="hidden" name="id" value="{{ $item['product']->id }}">
+                                                <button type="submit"
+                                                        class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">
+                                                    Eliminar
+                                                </button>
+                                            </form>
                                         </td>
                                     </tr>
                                 @endforeach
@@ -89,44 +85,31 @@
                         </div>
                     </div>
                     <div class="md:w-1/4">
-                        <div class="bg-white rounded-lg shadow-md p-6">
-                            <h2 class="text-lg font-semibold mb-4">Summary</h2>
+                        <div class="bg-white rounded-lg shadow-md p-6 mb-4">
+                            <h2 class="text-xl font-semibold mb-4">Resumen de compra</h2>
                             <div class="flex justify-between mb-2">
-                                <span>Cantidad total</span>
-                                <span>{{$totalItems}}</span>
+                                <span class="font-semibold">Subtotal</span>
+                                <span class="font-semibold">{{ $subtotal }} €</span>
                             </div>
-                            <hr class="my-2">
+                            <div class="flex justify-between mb-2">
+                                <span class="font-semibold">IVA (21%)</span>
+                                <span class="font-semibold">{{ $iva }} €</span>
+                            </div>
                             <div class="flex justify-between mb-2">
                                 <span class="font-semibold">Total</span>
-                                <span class="font-semibold">{{number_format($totalDelCarrito, 2, ',', '.')}}</span>
+                                <span class="font-semibold">{{ $total }} €</span>
                             </div>
-                            <a href="{{route('carrito.checkout')}}" class="bg-blue-500 text-white py-2 px-4 rounded-lg mt-4 w-full">Checkout</a>
+                            <form action="" method="post">
+                                @csrf
+                                <button type="submit"
+                                        class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded w-full">
+                                    Confirmar compra
+                                </button>
+                            </form>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </section>
-
 @endsection
-@foreach($cart as $item)
-    <tr>
-        <td>
-            @if($item['type'] == 'vehiculo')
-                {{ $item['product']->marca }} {{ $item['product']->modelo }}
-            @else
-                {{ $item['product']->nombre }}
-            @endif
-        </td>
-        <td>{{ ucfirst($item['type']) }}</td>
-        <td>{{ $item['quantity'] }}</td>
-        <td> {{ $item['price'] }} </td>
-    </tr>
-    <!-- Scrip de borrado de success alert -->
-    <script>
-        window.setTimeout(function () {
-            var alert = document.getElementById('success-alert');
-            if (alert) alert.style.display = 'none';
-        }, 2000);
-    </script>
-@endforeach

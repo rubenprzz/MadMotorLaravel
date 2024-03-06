@@ -40,7 +40,6 @@ class PedidoController extends Controller
         }
 
         // Vaciar el carrito
-        session()->forget('cart');
 
         // Redirigir al usuario a la página de confirmación
         return redirect()->route('pedido.confirmacion', ['id' => $pedido->id]);

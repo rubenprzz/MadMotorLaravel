@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\CarritoController;
 use App\Http\Controllers\ClientesController;
+use App\Http\Controllers\PedidoController;
 use App\Http\Controllers\PersonalController;
 use App\Http\Controllers\VehiculoController;
 use App\Http\Controllers\PiezaController;
@@ -21,6 +22,13 @@ Route::group(['prefix'=>'carrito'],function (){
     Route::get('/index',[CarritoController::class, 'index'])->name('carrito.index');
     Route::get('/carrito/add/{id}/{type}', [CarritoController::class, 'addToCart'])->name('carrito.add');
     Route::get('/carrito/delete/{id}/{type}', [CarritoController::class, 'removeFromCart'])->name('carrito.delete');
+    Route::get('/carrito/checkout', [CarritoController::class, 'checkout'])->name('carrito.checkout');
+});
+Route::group(['prefix'=>'pedido'],function (){
+    Route::post('/checkout',[PedidoController::class, 'checkout'])->name('pedido.checkout');
+   /* Route::get('/confirmacion/{id}',[PedidoController::class, 'confirmacion'])->name('pedido.confirmacion');
+    Route::get('/historial',[PedidoController::class, 'historial'])->name('pedido.historial');
+    Route::get('/historial/{id}',[PedidoController::class, 'show'])->name('pedido.show');*/
 });
 Route::group(['prefix'=>'piezas'],function (){
     Route::get('/',[PiezaController::class, 'index'])->name('piezas.index');

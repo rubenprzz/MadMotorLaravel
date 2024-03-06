@@ -95,5 +95,11 @@ class CarritoController extends Controller
         return redirect()->route('carrito.index')->with('success', 'Producto eliminado del carrito');
     }
 
+    //Obtener formulario del carrito.checkout
+    public function checkout()
+    {
+        return view('carrito.checkout');
+    }
+
 
 }
