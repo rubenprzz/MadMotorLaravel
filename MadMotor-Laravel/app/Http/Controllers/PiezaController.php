@@ -97,10 +97,7 @@ class PiezaController extends Controller
             $pieza->cantidad = $request->cantidad;
             $pieza->categoria_id = $request->categoria_id;
             if ($request->hasFile('imagen')) {
-                $imagenPath = 'public/piezas/' . $pieza->imagen;
-                if ($pieza->imagen !== Pieza::$IMAGE_DEFAULT && Storage::exists($imagenPath)) {
-                    Storage::delete($imagenPath);
-                }
+
                 $imagen = $request->file('imagen');
                 $extension = $imagen->getClientOriginalExtension();
                 $nombre = time() . '.' . $extension;
