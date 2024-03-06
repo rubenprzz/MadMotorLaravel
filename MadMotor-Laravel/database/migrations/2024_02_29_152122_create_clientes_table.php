@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('nombre');
             $table->string('email');
             $table->string('password');
-            $table->string('role')->default('cliente');
+            $table->enum('role', ['admin', 'cliente','personal'])->default('cliente');
             $table->string('apellido');
             $table->string('dni')->unique();
             $table->string('imagen')->default('https://via.placeholder.com/150');

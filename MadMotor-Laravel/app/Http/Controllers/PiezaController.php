@@ -1,8 +1,7 @@
 <?php
 
-use App\Http\Controllers;
+namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
 use App\Models\Categoria;
 use App\Models\Pieza;
 use Illuminate\Http\Request;
@@ -22,7 +21,6 @@ class PiezaController extends Controller
         if ($pieza) {
             return view('piezas.show')->with('pieza', $pieza);
         } else {
-            flash('Pieza no encontrado')->error();
             return redirect()->route('piezas.index');
         }
     }
@@ -39,7 +37,7 @@ class PiezaController extends Controller
             'nombre' => 'required|unique:piezas|max:255|min:3|string',
             'precio' => 'required|numeric|min:0.01',
             'cantidad' => 'required|integer|min:0',
-            'category_id' => 'required|string'
+            'categoria_id' => 'required|string'
         ], $this->messages());
 
         if ($validator->fails()) {
@@ -51,9 +49,8 @@ class PiezaController extends Controller
         $pieza->precio = $request->precio;
         $pieza->cantidad = $request->cantidad;
         $pieza->image = $pieza::$IMAGE_DEFAULT;
-        $pieza->category_id = $request->category_id;
+        $pieza->categoria_id = $request->categoria_id;
         $pieza->save();
-        flash('Pieza creada correctamente')->success();
         return redirect()->route('piezas.index');
     }
 
@@ -78,22 +75,21 @@ class PiezaController extends Controller
                 'descripcion'=>'max:255|min:3|string',
                 'precio' => 'numeric',
                 'cantidad' => 'integer',
-                'category_id' => 'string'
+                'categoria_id' => 'string'
             ], $this->messages());
 
             if ($validator->fails()) {
+                flash('Error al actualizar la pieza.')->error();
                 return redirect()->back()->withErrors($validator)->withInput();
             }
 
             $pieza->nombre = $request->nombre;
             $pieza->precio = $request->precio;
             $pieza->cantidad = $request->cantidad;
-            $pieza->category_id = $request->category_id;
+            $pieza->categoria_id = $request->categoria_id;
             $pieza->save();
-            flash('Pieza actualizado correctamente')->success();
             return redirect()->route('piezas.index');
         } else {
-            flash('Pieza no encontrado')->error();
             return redirect()->route('piezas.index');
         }
     }
@@ -135,10 +131,8 @@ class PiezaController extends Controller
             $pieza->image = $fileToSave;
 
             $pieza->save();
-            flash('Imagen actualizada correctamente')->success();
             return redirect()->route('piezas.index');
         } catch (Exception $e) {
-            flash('Error al actualizar la imagen')->error();
             return redirect()->route('piezas.index');
         }
     }
@@ -153,10 +147,8 @@ class PiezaController extends Controller
                 Storage::delete($imagePath);
             }
             $pieza->delete();
-            flash('Pieza eliminada correctamente')->success();
             return redirect()->route('piezas.index');
         } else {
-            flash('Pieza no encontrada')->error();
             return redirect()->route('piezas.index');
         }
     }
@@ -175,8 +167,8 @@ class PiezaController extends Controller
             'cantidad.required' => 'El cantidad es obligatorio.',
             'cantidad.integer' => 'El cantidad debe ser un número entero.',
             'cantidad.min' => 'El cantidad debe ser al menos 0.',
-            'category_id.required' => 'La categoría es obligatoria.',
-            'category_id.string' => 'La categoría debe ser una cadena de texto.',
+            'categoria_id.required' => 'La categoría es obligatoria.',
+            'categoria_id.string' => 'La categoría debe ser una cadena de texto.',
             'image.image' => 'La imagen debe ser una imagen.',
             'image.mimes' => 'La imagen debe ser un archivo de tipo: jpeg, png, jpg, gif, svg.',
             'image.max' => 'La imagen no puede ser mayor de 2048 kilobytes.'
