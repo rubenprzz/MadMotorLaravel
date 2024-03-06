@@ -59,42 +59,46 @@ class ClientesController extends Controller
      */
     public function show($id)
     {
-        $cliente = Clientes::find($id);
-        $this->authorize('view', $cliente);
-
         try {
             $cliente = Clientes::find($id);
-            if ($cliente == null) {
-                Log::error('No se ha encontrado el cliente con el id: ' . $id);
-                return response()->json(['error' => 'No se ha encontrado el cliente'], 404);
+            try {
+            $this->authorize('view', $cliente);
+                if ($cliente == null) {
+                    Log::error('No se ha encontrado el cliente con el id: ' . $id);
+                    return redirect()->back();
+                }
+                Log::info('Se ha obtenido el cliente correctamente');
+                return view('cliente.show')->with('cliente', $cliente);
+            } catch (AuthorizationException $e) {
+                Log::error('Error al obtener el cliente: ' . $e->getMessage());
+                return redirect()->back();
             }
-            Log::info('Se ha obtenido el cliente correctamente');
-            return view('cliente.show')->with('cliente', $cliente);
-
         } catch (\Exception $e) {
             Log::error('Error al obtener el cliente: ' . $e->getMessage());
-            return response()->json(['error2' => $e->getMessage()], 404);
+            return redirect()->back();
         }
     }
 
     public function edit(Request $request, $id)
     {
-        $cliente = Clientes::find($id);
-        $this->authorize('update', $cliente);
         try {
             $cliente = Clientes::find($id);
-            if ($cliente == null || $cliente->isDeleted) {
-                Log::error('No se ha encontrado el cliente con el id: ' . $id);
-                return response()->json(['error' => 'No se ha encontrado el cliente'], 404);
+            try {
+            $this->authorize('update', $cliente);
+                if ($cliente == null || $cliente->isDeleted) {
+                    Log::error('No se ha encontrado el cliente con el id: ' . $id);
+                    return redirect()->back();
+                }
+                Log::info('Se ha obtenido el cliente para actualizar correctamente');
+                return view('cliente.edit')->with('cliente', $cliente);
+            } catch (AuthorizationException $e) {
+                Log::error('Error al obtener el cliente para actualizar : ' . $e->getMessage());
+                return redirect()->back();
             }
-            $cliente->update($request->all());
-            Log::info('Se ha obtenido el cliente para actualizar correctamente');
-            return view('cliente.edit')->with('cliente', $cliente);
         } catch (\Exception $e) {
             Log::error('Error al obtener el cliente para actualizar : ' . $e->getMessage());
-            return response()->json(['error' => $e->getMessage()], 404);
+            return redirect()->back();
         }
-
     }
 
     public function update(Request $request, string $id)
@@ -102,7 +106,9 @@ class ClientesController extends Controller
         Log::info('Se ha pedido actualizar el cliente con id: ' . $id);
         $request->validate([
             'nombre' => 'required|string|max:255|min:3',
+            'email' => 'required|email',
             'apellido' => 'required|string|max:255|min:3',
+            'codigo_postal' => 'required|min:5|max:5|regex:/^[0-9]{5}$/',
         ]);
         Log::info('Se ha validado correctamente el cliente');
         try {
