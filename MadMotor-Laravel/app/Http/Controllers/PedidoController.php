@@ -7,6 +7,7 @@ use App\Models\Pedido;
 use App\Models\Pieza;
 use App\Models\Vehiculo;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\App;
 
 class PedidoController extends Controller
 {
@@ -72,5 +73,16 @@ class PedidoController extends Controller
         $pedido->estado = 'confirmado';
         $pedido->save();
         return redirect()->route('pedido.historial');
+    }
+    //generar pdf
+    public function download($id){
+        $pdf = App::make('dompdf.wrapper');
+
+        $data =[
+          'title' => 'Pedido confirmado',
+        ];
+        $pedido = Pedido::find($id);
+        $pdf = \PDF::loadView('pedido.pdf', compact('pedido'));
+        return $pdf->download('pedido.pdf');
     }
 }
