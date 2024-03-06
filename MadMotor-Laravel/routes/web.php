@@ -26,9 +26,9 @@ Route::group(['prefix'=>'carrito'],function (){
 });
 Route::group(['prefix'=>'pedido'],function (){
     Route::post('/checkout',[PedidoController::class, 'checkout'])->name('pedido.checkout');
-   /* Route::get('/confirmacion/{id}',[PedidoController::class, 'confirmacion'])->name('pedido.confirmacion');
+    Route::get('/confirmado/{id}',[PedidoController::class, 'confirmacion'])->name('pedido.confirmacion');
     Route::get('/historial',[PedidoController::class, 'historial'])->name('pedido.historial');
-    Route::get('/historial/{id}',[PedidoController::class, 'show'])->name('pedido.show');*/
+    Route::get('/historial/{id}',[PedidoController::class, 'show'])->name('pedido.show');
 });
 Route::group(['prefix'=>'piezas'],function (){
     Route::get('/',[PiezaController::class, 'index'])->name('piezas.index');

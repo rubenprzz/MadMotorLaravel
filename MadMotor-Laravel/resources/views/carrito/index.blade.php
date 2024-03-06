@@ -105,33 +105,35 @@
                                 <span class="font-semibold">Total</span>
                                 <span class="font-semibold">{{number_format($totalDelCarrito, 2, ',', '.')}}</span>
                             </div>
-                            <a href="{{route('carrito.checkout')}}" class="bg-blue-500 text-white py-2 px-4 rounded-lg mt-4 w-full">Checkout</a>
+                            <a href="{{route('carrito.checkout')}}">
+                            <button  class="bg-blue-500 text-white py-2 px-4 rounded-lg mt-4 w-full">Checkout</button>
+                            </a>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </section>
-
+    @foreach($cart as $item)
+        <tr>
+            <td>
+                @if($item['type'] == 'vehiculo')
+                    {{ $item['product']->marca }} {{ $item['product']->modelo }}
+                @else
+                    {{ $item['product']->nombre }}
+                @endif
+            </td>
+            <td>{{ ucfirst($item['type']) }}</td>
+            <td>{{ $item['quantity'] }}</td>
+            <td> {{ $item['price'] }} </td>
+        </tr>
+        <!-- Scrip de borrado de success alert -->
+        <script>
+            window.setTimeout(function () {
+                var alert = document.getElementById('success-alert');
+                if (alert) alert.style.display = 'none';
+            }, 2000);
+        </script>
+    @endforeach
 @endsection
-@foreach($cart as $item)
-    <tr>
-        <td>
-            @if($item['type'] == 'vehiculo')
-                {{ $item['product']->marca }} {{ $item['product']->modelo }}
-            @else
-                {{ $item['product']->nombre }}
-            @endif
-        </td>
-        <td>{{ ucfirst($item['type']) }}</td>
-        <td>{{ $item['quantity'] }}</td>
-        <td> {{ $item['price'] }} </td>
-    </tr>
-    <!-- Scrip de borrado de success alert -->
-    <script>
-        window.setTimeout(function () {
-            var alert = document.getElementById('success-alert');
-            if (alert) alert.style.display = 'none';
-        }, 2000);
-    </script>
-@endforeach
+
