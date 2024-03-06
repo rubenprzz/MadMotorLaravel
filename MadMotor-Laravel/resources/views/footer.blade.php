@@ -1,5 +1,5 @@
 <footer
-    class=" flex flex-col py-30 items-center bg-zinc-50 text-center text-surface dark:bg-gray-800 dark:text-white">
+    class="  w-fullflex-grow flex-col py-30 items-center bg-zinc-50 text-center text-surface dark:bg-gray-800 dark:text-white">
     <div class="container pt-9">
         <div class="mb-6 flex justify-center space-x-2">
             <a
