@@ -58,13 +58,12 @@ Route::group(['prefix' => 'perfil'], function () {
     });});*/
 
     Route::group(['prefix' => 'personal'], function () {
-//        Route::get('/', [PersonalController::class, 'index'])->name('personal.index');
         Route::get('/create', [PersonalController::class, 'create'])->name('personal.create');
+        Route::post('/store', [PersonalController::class, 'store'])->name('personal.store');
         Route::get('/show/{id}', [PersonalController::class, 'show'])->name('personal.show');
         Route::get('/', [PersonalController::class, 'index'])->name('personal.search');
-//        Route::get('/{id}/edit', [PersonalController::class, 'edit'])->name('personal.edit')->middleware('auth');
-//        Route::get('/create', [PersonalController::class, 'create'])->name('personal.create')->middleware('auth');
-//        Route::get('/index', [PersonalController::class, 'index'])->name('personal.index')->middleware('auth');
+        Route::get('/{id}/edit', [PersonalController::class, 'edit'])->name('personal.edit');
+        Route::put('/{id}/update', [PersonalController::class, 'update'])->name('personal.update');
 
 
     });
