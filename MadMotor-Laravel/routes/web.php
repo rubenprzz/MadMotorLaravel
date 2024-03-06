@@ -68,8 +68,6 @@ Route::group(['prefix' => 'perfil'], function () {
 
     });
 
-});
-
 Route::get('/panel', function () {
     return view('admin.panel');
 })->name('panel');
