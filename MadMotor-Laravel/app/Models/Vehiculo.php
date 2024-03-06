@@ -95,6 +95,11 @@ class Vehiculo extends Model
         }
     }
 
+    public function scopeIsDeleted($query)
+    {
+        return $query->where('isDeleted', false);
+    }
+
     public function scopeOrderByPrecioAcs($query)
     {
         return $query->orderBy('precio', 'asc');

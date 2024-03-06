@@ -1,7 +1,10 @@
 <?php
 
+use App\Http\Controllers\CarritoController;
 use App\Http\Controllers\ClientesController;
 use App\Http\Controllers\VehiculoController;
+use App\Http\Controllers\PiezaController;
+
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Personal\PersonalAuthController;
@@ -11,6 +14,22 @@ Route::get('/', 'App\Http\Controllers\VehiculoController@hero')->name('vehiculos
 
 Route::group(['prefix' => 'vehiculos'], function (){
     Route::get('/', [VehiculoController::class,'index'])->name('vehiculos.index');
+});
+
+Route::group(['prefix'=>'carrito'],function (){
+    Route::get('/',[CarritoController::class, 'index'])->name('carrito.index');
+    Route::post('/add',[CarritoController::class, 'add'])->name('carrito.add');
+    Route::delete('/{id}',[CarritoController::class, 'delete'])->name('carrito.delete');
+    Route::post('/checkout',[CarritoController::class, 'checkout'])->name('carrito.checkout');
+});
+Route::group(['prefix'=>'piezas'],function (){
+    Route::get('/',[PiezaController::class, 'index'])->name('piezas.index');
+    Route::post('/create',[PiezaController::class, 'store'])->name('piezas.store');
+    Route::put('/{id}',[PiezaController::class, 'update'])->name('piezas.update');
+    Route::delete('/{id}',[PiezaController::class, 'destroy'])->name('piezas.destroy');
+    Route::get('/{id}',[PiezaController::class, 'show'])->name('piezas.show');
+    Route::put('/{id}/edit',[PiezaController::class, 'edit'])->name('piezas.edit');
+
 });
 
 Auth::routes();
@@ -36,3 +55,4 @@ Route::prefix('personal')->name('personal.')->group(function () {
         Route::post('/logout', [PersonalAuthController::class, 'logout'])->name('logout');
     });
 });
+
