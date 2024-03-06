@@ -85,4 +85,15 @@ class PersonalController extends Controller
             return redirect()->back();
         }
     }
+
+    public function destroy($id)
+    {
+        try {
+            $personal = Personal::find($id);
+            $personal->delete();
+            return redirect()->route('personal.search');
+        } catch (Exception $e) {
+            return redirect()->back();
+        }
+    }
 }
