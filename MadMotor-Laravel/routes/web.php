@@ -41,6 +41,7 @@ Route::group(['prefix' => 'perfil'], function () {
     Route::get('/{id}', [ClientesController::class, 'show'])->name('cliente.perfil')->middleware('auth');
     Route::get('/{id}/edit', [ClientesController::class, 'edit'])->name('cliente.edit')->middleware('auth');
     Route::put('/{id}', [ClientesController::class, 'update'])->name('cliente.update')->middleware('auth');
+    Route::get('/{id}/soft', [ClientesController::class, 'removeSoft'])->name('cliente.removeSoft')->middleware('auth');
 
 });
 
