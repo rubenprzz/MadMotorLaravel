@@ -28,7 +28,8 @@ Route::group(['prefix'=>'piezas'],function (){
     Route::put('/{id}',[PiezaController::class, 'update'])->name('piezas.update');
     Route::delete('/{id}',[PiezaController::class, 'destroy'])->name('piezas.destroy');
     Route::get('/{id}',[PiezaController::class, 'show'])->name('piezas.show');
-    Route::put('/{id}/edit',[PiezaController::class, 'edit'])->name('piezas.edit');
+    Route::get('/{id}/edit',[PiezaController::class, 'edit'])->name('piezas.edit');
+    Route::put('/{id}/edit',[PiezaController::class, 'update'])->name('piezas.update');
 
 });
 
