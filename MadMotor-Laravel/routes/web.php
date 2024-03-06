@@ -24,7 +24,8 @@ Route::group(['prefix'=>'carrito'],function (){
 });
 Route::group(['prefix'=>'piezas'],function (){
     Route::get('/',[PiezaController::class, 'index'])->name('piezas.index');
-    Route::post('/create',[PiezaController::class, 'store'])->name('piezas.store');
+    Route::post('/create',[PiezaController::class, 'create'])->name('piezas.create');
+    Route::get('/create',[PiezaController::class, 'store'])->name('piezas.store');
     Route::put('/{id}',[PiezaController::class, 'update'])->name('piezas.update');
     Route::delete('/{id}',[PiezaController::class, 'destroy'])->name('piezas.destroy');
     Route::get('/{id}',[PiezaController::class, 'show'])->name('piezas.show');
