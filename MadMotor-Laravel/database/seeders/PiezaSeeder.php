@@ -16,12 +16,11 @@ class PiezaSeeder extends Seeder
     {
         DB::table('piezas')->insert([
             ['id' => Uuid::uuid4(),
-
                 'nombre' => 'Filtro de aire',
                 'precio' => 20.50,
                 'descripcion' => 'Filtro de aire de alta calidad para motores de gasolina.',
                 'cantidad' => 100,
-                'categoria_id' => Categoria::where('name', 'Bujias')->first()->id,
+                'categoria_id' => 11,
                 'isDeleted' => false,
                 'created_at' => now(),
                 'updated_at' => now()
@@ -32,8 +31,7 @@ class PiezaSeeder extends Seeder
                 'precio' => 35.75,
                 'descripcion' => 'Pastillas de freno cerámicas para un frenado suave y eficiente.',
                 'cantidad' => 80,
-                'categoria_id' => Categoria::where('name', 'Bujias')->first()->id,
-
+                'categoria_id' => 11,
                 'isDeleted' => false,
                 'created_at' => now(),
                 'updated_at' => now()
@@ -43,8 +41,7 @@ class PiezaSeeder extends Seeder
                 'precio' => 8.99,
                 'descripcion' => 'Bujías de encendido de platino para una chispa más potente y duradera.',
                 'cantidad' => 120,
-                'categoria_id' => Categoria::where('name', 'Bujias')->first()->id,
-
+                'categoria_id' => 11,
                 'isDeleted' => false,
                 'created_at' => now(),
                 'updated_at' => now()
@@ -54,8 +51,7 @@ class PiezaSeeder extends Seeder
                 'precio' => 89.99,
                 'descripcion' => 'Amortiguadores traseros de alta calidad para una conducción suave y segura.',
                 'cantidad' => 50,
-                'categoria_id' => Categoria::where('name', 'Bujias')->first()->id,
-
+                'categoria_id' => 11,
                 'isDeleted' => false,
                 'created_at' => now(),
                 'updated_at' => now()
@@ -65,7 +61,7 @@ class PiezaSeeder extends Seeder
                 'precio' => 120.25,
                 'descripcion' => 'Radiador de aluminio de alta eficiencia para mantener el motor fresco.',
                 'cantidad' => 40,
-                'categoria_id' => Categoria::where('name', 'Bujias')->first()->id,
+                'categoria_id' => 11,
 
                 'isDeleted' => false,
                 'created_at' => now(),
@@ -99,7 +95,7 @@ class PiezaSeeder extends Seeder
                 'categoria_id' => 11,
                 'isDeleted' => false,
                 'created_at' => now(),
-                'updated_at'=> now()
+                'updated_at' => now()
             ]
         ]);
     }
