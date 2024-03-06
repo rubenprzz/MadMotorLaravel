@@ -11,7 +11,7 @@
         <section>
             < class="container">
             <div class="section-title">
-                <h2>Mostrar Personal</h2>
+                <h2>Detalles Personal</h2>
             </div>
 
             <div class="form-group mt-5">
