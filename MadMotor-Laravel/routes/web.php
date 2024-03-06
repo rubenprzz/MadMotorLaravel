@@ -56,3 +56,6 @@ Route::prefix('personal')->name('personal.')->group(function () {
     });
 });
 
+Route::get('/panel', function () {
+    return view('admin.panel');
+})->name('panel');
