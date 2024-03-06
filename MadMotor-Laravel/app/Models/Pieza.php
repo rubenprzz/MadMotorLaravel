@@ -41,7 +41,7 @@ class Pieza extends Model
     ];
 
 
-    public function category()
+    public function categoria()
     {
     return $this->belongsTo(Categoria::class);
     }
