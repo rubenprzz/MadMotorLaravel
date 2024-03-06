@@ -18,8 +18,6 @@ class Clientes extends Authenticatable
         'password',
         'role',
         'apellido',
-        'direccion',
-        'codigo_postal',
         'dni',
         'imagen',
         'isDeleted',
@@ -29,7 +27,6 @@ class Clientes extends Authenticatable
     public function  scopeSearch($query, $search)
     {
         return $query->whereRaw('LOWER(nombre) LIKE ?', ["%" . strtolower($search) . "%"])
-            ->orWhereRaw('cast(codigo_postal as text) LIKE ?', ["%" . $search . "%"])
             ->orWhereRaw('LOWER(dni) LIKE ?', ["%" . strtolower($search) . "%"]);
     }
     protected $hidden = [

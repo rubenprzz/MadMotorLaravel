@@ -3,7 +3,7 @@
     class="py-3 px-10 flex items-center fixed top-0 w-full justify-between z-40 text-white border-b border-gray-400 bg-black/50 backdrop-blur-lg transition-colors duration-500 ease-in-out"
 >
     <div class="flex flex-grow basis-0">
-        <a href="./">
+        <a href="{{route('vehiculos.hero')}}">
             <img src="{{asset('images/logo.png')}}" alt="MadMotor" class="h-10"/>
         </a>
     </div>
@@ -12,9 +12,11 @@
         <ul
             class="flex text-lg transition-colors duration-500 text-current font-medium inline-block px-4 py-2 space-x-4"
         >
-            <li><a class="transition-colors duration-500 text-current font-medium inline-block px-4 py-2" href="{{route('vehiculos.index')}}">Vehículos</a>
+            <li><a class="transition-colors duration-500 text-current font-medium inline-block px-4 py-2"
+                   href="{{route('vehiculos.index')}}">Vehículos</a>
             </li>
-            <li><a class="transition-colors duration-500 text-current font-medium inline-block px-4 py-2" href="#">Piezas</a>
+            <li><a class="transition-colors duration-500 text-current font-medium inline-block px-4 py-2"
+                   href="{{route('piezas.index')}}">Piezas</a>
             </li>
 
         </ul>
@@ -25,10 +27,6 @@
             class="flex text-lg transition-colors duration-500 text-current font-medium inline-block px-4 py-2 space-x-4"
         >
             @guest
-                <li class=" transition-colors duration-500 text-current font-medium inline-block px-3 py-2"><a href=" ">Carrito</a>
-                </li>
-
-
                 <li class=" transition-colors duration-500 text-current font-medium inline-block px-1 py-2  "><a
                         href="{{route('login')}}">Iniciar Sesión</a></li>
                 <li><a class="transition-colors duration-500 text-current font-medium inline-block px-3 py-2"
@@ -37,7 +35,7 @@
             @endguest
 
             @auth
-                <li class=" transition-colors duration-500 text-current font-medium inline-block px-2 py-2"><a href="#">Carrito</a>
+                <li class=" transition-colors duration-500 text-current font-medium inline-block px-2 py-2"><a href="{{route('carrito.index')}}">Carrito <span class="badge rounded-3 bg-primary"> {{session()->get('cart') ? count(session()->get('cart')) : 0}} </span></a>
                 </li>
 
                 <li class=" transition-colors duration-500 text-current font-medium inline-block px-2 py-2"><a

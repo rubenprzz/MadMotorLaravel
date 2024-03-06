@@ -12,7 +12,7 @@
             </header>
             <footer class="flex flex-col flex-grow justify-end w-1/4 mx-auto pb-20">
                 <a class="border-3 border-white bg-white/5 backdrop-blur-sm text-sm rounded font-medium text-white px-12 py-2 inline-block hover:bg-white hover:text-black transition-colors my-hover-class"
-                   href="#">Descubre nuestros productos</a>
+                   href="#coches">Descubre nuestros productos</a>
             </footer>
         </div>
         <video class="absolute top-0 bottom-0 h-full w-full z-10 object-center object-cover" autoplay muted loop
@@ -20,7 +20,7 @@
     </section>
 
     <!-- Vehiculos -->
-    <section class="bg-gray-900 text-center overflow-hidden relative">
+    <section class="bg-gray-900 text-center overflow-hidden relative" id="coches">
         <h2 class="text-center text-white text-4xl font-bold mt-10">Nuestros vehículos</h2>
         <p class="text-center text-white text-sm mb-10">Descubre nuestra amplia gama de vehículos</p>
         @if(count($vehiculos)>0)
@@ -58,7 +58,7 @@
 
                                 <!-- Boton de carrito -->
                                 <div class="relative inline-flex  group pb-2">
-                                    <a href="#"
+                                    <a href="{{ route('carrito.add', ['id' => $vehiculo->id, 'type' => 'vehiculo']) }}"
                                        class="relative inline-flex items-center justify-start px-4 py-2 overflow-hidden font-medium transition-all bg-white rounded hover:bg-white group">
                                         <span
                                             class="w-48 h-48 rounded rotate-[-40deg] bg-gray-900 absolute bottom-0 left-0 -translate-x-full ease-out duration-500 transition-all translate-y-full mb-9 ml-9 group-hover:ml-0 group-hover:mb-32 group-hover:translate-x-0"></span>
@@ -133,7 +133,7 @@
 
                                 </div>
                                 <div class="relative inline-flex  group pb-2">
-                                    <a href="#"
+                                    <a href="{{ route('carrito.add', ['id' => $pieza->id, 'type' => 'pieza']) }}"
                                        class="relative inline-flex items-center justify-start px-4 py-2 overflow-hidden font-medium transition-all bg-white rounded hover:bg-white group">
                                         <span
                                             class="w-48 h-48 rounded rotate-[-40deg] bg-gray-900 absolute bottom-0 left-0 -translate-x-full ease-out duration-500 transition-all translate-y-full mb-9 ml-9 group-hover:ml-0 group-hover:mb-32 group-hover:translate-x-0"></span>
@@ -152,7 +152,7 @@
                 @endforeach
             </div>
         @endif
-        <div class="flex flex-row justify-center">
+        <div class="flex flex-row justify-center mb-5">
             <div class="flex flex-row justify-center">
                 <a href="#"
                    class="border-3 border-white bg-white/5 backdrop-blur-sm text-sm rounded font-medium text-white px-12 py-2 inline-block hover:bg-white hover:text-black transition-colors my-hover-class">
