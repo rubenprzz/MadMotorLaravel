@@ -1,10 +1,14 @@
+@php use App\Models\Vehiculo; @endphp
+
 @extends('main')
 @section('title', 'Vehiculos')
 @section('content')
     <section class="bg-gray-900 font text-white">
         <div class="container rounded-4 pt-5 shadow-lg bg-gray-700 ">
             <div class="pt-20">
-                <h1 class="text-3xl  font-bold text-center underline decoration-sky-500">Vehículos</h1>
+                <h1 class="text-3xl  font-bold text-center underline decoration-sky-500">
+                    {{count($vehiculos) }} Vehículos de MadMotor
+                </h1>
                 <div class="grid grid-cols-4 gap-4 pt-3 text-black">
 
                     <div class="col-span-1">
@@ -100,8 +104,8 @@
 
                     <div class="col-span-3 mt-3">
 
-                        <div class="relative">
-                            <div class=" absolute  bottom-0 right-0 w-25">
+                        <div class="relative ">
+                            <div class=" absolute  bottom-4 right-0 w-25">
                                 <form action="{{ route('vehiculos.index') }}" method="GET" class="form">
                                     <label for="orden"
                                            class="text-xl font-bold text-gray-900 text-white"></label>
@@ -138,19 +142,66 @@
                         </div>
 
                         <div class="flex flex-col gap-4">
-                            @foreach ($vehiculos as $vehiculo)
-                                <div class="bg-white shadow rounded p-4">
-                                    <h2 class="text-lg font-semibold">{{ $vehiculo->marca }} {{ $vehiculo->modelo }}</h2>
-                                    <p>Año: {{ $vehiculo->year }}</p>
-                                    <p>Kilómetros: {{ $vehiculo->km }}</p>
-                                    <p>Precio: {{ $vehiculo->precio }}</p>
+                            @if(count($vehiculos) > 0)
+                                @foreach ($vehiculos as $vehiculo)
+                                    <div class="card shadow p-4">
+                                        <div class="row align-items-center">
+                                            <aside class="col-md-3">
+                                                <a href="#">
+                                                    @if ($vehiculo->imagen != Vehiculo::$IMAGEN_DEFAULT)
+                                                        <img src="{{ asset('storage/'.$vehiculo->imagen) }}"
+                                                             class="img-sm border"
+                                                             alt="coche">
+                                                    @else
+                                                        <img src="{{ $vehiculo->imagen }}" class="img-sm border"
+                                                             alt="coche">
+                                                    @endif
+                                                </a>
+                                            </aside>
+                                            <div class="col-md-5">
+                                                <div class="">
+                                                    <a href="#"
+                                                       class="h5 title"> {{$vehiculo->marca}} {{$vehiculo->modelo}} </a>
+                                                    <div class="d-flex align-items-center">
+                                                        <span class="text-muted small">Año: {{$vehiculo->year}}</span>
+                                                    </div>
+                                                    <div class="d-flex align-items-center">
+                                                        <span class="">Kilómetros: {{$vehiculo->km}}</span>
+                                                    </div>
+
+
+                                                </div>
+                                            </div>
+                                            <div class="col-12 col-md-3">
+                                                <div class="d-flex align-items-center">
+                                                    <span class="h4 mb-0 text-danger">{{$vehiculo->precio}}€</span>
+
+                                                </div>
+
+                                                <span class="text-success small"><span
+                                                        class="fas fa-shipping-fast me-1"></span>Disponible!</span>
+                                                <div class="d-grid gap-2 mt-4">
+                                                    <a class="btn btn-tertiary btn-sm" href="#">
+                                                        Details
+                                                    </a>
+                                                    <a href="#" class="btn btn-check btn-sm">
+                                                        Añadir al Carrito
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                @endforeach
+                            @else
+                                <div class="text-center">
+                                    <h1 class="text-3xl font-bold text-gray-900 text-white">No se encontraron
+                                        vehículos</h1>
                                 </div>
-                            @endforeach
+                            @endif
                         </div>
                     </div>
                 </div>
             </div>
-
         </div>
         <div class="flex justify-center pt-5">
             {{ $vehiculos->links() }}
