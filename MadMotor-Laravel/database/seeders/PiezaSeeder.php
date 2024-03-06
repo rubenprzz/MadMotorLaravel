@@ -16,7 +16,6 @@ class PiezaSeeder extends Seeder
     {
         DB::table('piezas')->insert([
             ['id' => Uuid::uuid4(),
-
                 'nombre' => 'Filtro de aire',
                 'precio' => 20.50,
                 'descripcion' => 'Filtro de aire de alta calidad para motores de gasolina.',
@@ -33,7 +32,6 @@ class PiezaSeeder extends Seeder
                 'descripcion' => 'Pastillas de freno cerámicas para un frenado suave y eficiente.',
                 'cantidad' => 80,
                 'categoria_id' => Categoria::where('nombre', 'Bujias')->first()->id,
-
                 'isDeleted' => false,
                 'created_at' => now(),
                 'updated_at' => now()
@@ -44,7 +42,7 @@ class PiezaSeeder extends Seeder
                 'descripcion' => 'Bujías de encendido de platino para una chispa más potente y duradera.',
                 'cantidad' => 120,
                 'categoria_id' => Categoria::where('nombre', 'Bujias')->first()->id,
-
+                'categoria_id' => 11,
                 'isDeleted' => false,
                 'created_at' => now(),
                 'updated_at' => now()
@@ -55,7 +53,7 @@ class PiezaSeeder extends Seeder
                 'descripcion' => 'Amortiguadores traseros de alta calidad para una conducción suave y segura.',
                 'cantidad' => 50,
                 'categoria_id' => Categoria::where('nombre', 'Bujias')->first()->id,
-
+                'categoria_id' => 11,
                 'isDeleted' => false,
                 'created_at' => now(),
                 'updated_at' => now()
@@ -66,7 +64,6 @@ class PiezaSeeder extends Seeder
                 'descripcion' => 'Radiador de aluminio de alta eficiencia para mantener el motor fresco.',
                 'cantidad' => 40,
                 'categoria_id' => Categoria::where('nombre', 'Bujias')->first()->id,
-
                 'isDeleted' => false,
                 'created_at' => now(),
                 'updated_at' => now()
@@ -99,7 +96,7 @@ class PiezaSeeder extends Seeder
                 'categoria_id' => 11,
                 'isDeleted' => false,
                 'created_at' => now(),
-                'updated_at'=> now()
+                'updated_at' => now()
             ]
         ]);
     }

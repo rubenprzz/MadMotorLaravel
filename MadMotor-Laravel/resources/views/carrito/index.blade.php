@@ -1,5 +1,6 @@
 @php use App\Models\Vehiculo; @endphp
 @php use App\Models\Pieza; @endphp
+
 @extends('main')
 @section('title', 'Carrito de compra')
 @section('content')
@@ -9,9 +10,11 @@
                 <h1 class="text-2xl font-semibold text-white mb-4">Carrito de compra</h1>
                 <div class="flex flex-col md:flex-row gap-4">
                     <div class="md:w-3/4">
-                        <div class="bg-white rounded-lg shadow-md p-6 mb-4">
+                        <div class="bg-white rounded-lg shadow-md p-6 mb-4 overflow-y-auto" style="max-height: 60vh;">
                             @if(session('success'))
-                                <div id="success-alert" class="bg-green-100 border-l-4 border-green-500 text-green-700 p-4 mb-4" role="alert">
+                                <div id="success-alert"
+                                     class="bg-green-100 border-l-4 border-green-500 text-green-700 p-4 mb-4"
+                                     role="alert">
                                     <p class="font-bold">Success</p>
                                     <p>{{ session('success') }}</p>
                                 </div>
@@ -89,21 +92,13 @@
                         <div class="bg-white rounded-lg shadow-md p-6">
                             <h2 class="text-lg font-semibold mb-4">Summary</h2>
                             <div class="flex justify-between mb-2">
-                                <span>Subtotal</span>
-                                <span>$19.99</span>
-                            </div>
-                            <div class="flex justify-between mb-2">
-                                <span>Taxes</span>
-                                <span>$1.99</span>
-                            </div>
-                            <div class="flex justify-between mb-2">
-                                <span>Shipping</span>
-                                <span>$0.00</span>
+                                <span>Cantidad total</span>
+                                <span>{{$totalItems}}</span>
                             </div>
                             <hr class="my-2">
                             <div class="flex justify-between mb-2">
                                 <span class="font-semibold">Total</span>
-                                <span class="font-semibold">$21.98</span>
+                                <span class="font-semibold">{{number_format($totalDelCarrito, 2, ',', '.')}}</span>
                             </div>
                             <button class="bg-blue-500 text-white py-2 px-4 rounded-lg mt-4 w-full">Checkout</button>
                         </div>
@@ -129,7 +124,7 @@
     </tr>
     <!-- Scrip de borrado de success alert -->
     <script>
-        window.setTimeout(function() {
+        window.setTimeout(function () {
             var alert = document.getElementById('success-alert');
             if (alert) alert.style.display = 'none';
         }, 2000);

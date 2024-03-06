@@ -106,10 +106,10 @@
                                     </div>
                                     <div class="flex space-x-2 text-sm font-medium  justify-content-center">
                                         @if(auth()->user())
-                                            <button
+                                            <a href="{{route('carrito.add', ['id' => $pieza->id, 'type' => 'pieza'])}}"
                                                 class="transition ease-in duration-300 inline-flex items-center text-sm font-medium mb-2 md:mb-0 bg-purple-500 px-5 py-2 hover:shadow-lg tracking-wider text-white rounded-full hover:bg-purple-600 ">
                                                 <span>Añadir al carrito</span>
-                                            </button>
+                                            </a>
                                         @endif
                                         <a href="{{route('piezas.show',$pieza->id)}}">
                                             <button
@@ -134,7 +134,6 @@
                                                     </button>
                                                 </a>
                                             @endif
-
                                         @endauth
 
 

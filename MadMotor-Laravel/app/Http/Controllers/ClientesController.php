@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\Request;
 use App\Models\Clientes;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 
 class ClientesController extends Controller
@@ -126,7 +127,8 @@ class ClientesController extends Controller
             $cliente->isDeleted = true;
             $cliente->save();
             Log::info('Se ha eliminado el cliente correctamente');
-            return redirect()->route('cliente.index');
+            Auth::logout();
+            return redirect()->route('/');
         } catch (\Exception $e) {
             Log::error('Error al eliminar el cliente: ' . $e->getMessage());
             return redirect()->back();
