@@ -17,7 +17,7 @@ class Personal extends Authenticatable {
     protected $fillable = [
         'nombre',
         'apellidos',
-        'FechaNacimiento',
+        'fechaNacimiento',
         'dni',
         'direccion',
         'telefono',
@@ -32,13 +32,14 @@ class Personal extends Authenticatable {
         'isDeleted' => 'boolean',
     ];
 
-    protected $dates = [
-        'FechaNacimiento',
-    ];
-
-
     protected $hidden = [
         'password',
         'remember_token',
     ];
-}
+
+    public function  scopeSearch($query, $search)
+    {
+        return $query->whereRaw('LOWER(nombre) LIKE ?', ["%" . strtolower($search) . "%"])
+            ->orWhereRaw('LOWER(dni) LIKE ?', ["%" . strtolower($search) . "%"]);
+    }
+    }

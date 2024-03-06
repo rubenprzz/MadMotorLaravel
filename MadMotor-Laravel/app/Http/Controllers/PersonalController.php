@@ -3,12 +3,17 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Personal;
 
 class PersonalController extends Controller
 {
     public function index(Request $request) {
-        $personal = Personal::search($request->search)->orderBy('id', 'asc')->paginate(10);
-        return view('personal.index')->with('personal', $personal);
+        try {
+            $personals = Personal::search($request->search)->orderBy('id', 'asc')->paginate(10);
+            return view('personal.index')->with('personals', $personals);
+        } catch (\Exception $e) {
+            return response()->json(['error' => $e->getMessage()], 500);
+        }
     }
 
     public function show($id)

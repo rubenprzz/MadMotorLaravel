@@ -23,7 +23,7 @@ return new class extends Migration
             $table->string('iban');
             $table->string('email')->unique();
             $table->string('password');
-            $table->enum('role', ['personal', 'admin'])->default('personal');
+            $table->enum('role', ['Personal', 'Admin'])->default('Personal');
             $table->boolean('isDeleted')->default(false);
             $table->rememberToken();
             $table->timestamps();
