@@ -36,9 +36,14 @@ class Pedido extends Model
             $pedido->id = Str::uuid();
         });
     }
+    public function cliente()
+    {
+        return $this->belongsTo(Clientes::class, 'idCliente');
+    }
+
     public function lineasDePedido()
     {
-        return $this->hasMany(LineaDePedido::class);
+        return $this->hasMany(LineaDePedido::class, 'idPedido');
     }
 
 }

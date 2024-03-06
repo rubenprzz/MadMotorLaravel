@@ -21,7 +21,7 @@ class PedidoController extends Controller
         $pedido->datosTarjeta = $request->input('datosTarjeta');
         $pedido->direccion = $request->input('direccion');
         $pedido->total = array_sum(array_column($cart, 'line_total'));
-        $pedido->estado = 'pendiente';
+        $pedido->estado = 'confirmado';
         $pedido->save();
 
         // Crear una línea de pedido para cada artículo en el carrito
