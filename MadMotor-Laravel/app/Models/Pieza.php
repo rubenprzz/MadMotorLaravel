@@ -22,6 +22,7 @@ class Pieza extends Model
         'isDeleted'
     ];
     protected $keyType = 'string';
+    public $incrementing = false;
 
     public static function boot()
     {
