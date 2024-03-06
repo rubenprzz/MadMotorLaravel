@@ -68,13 +68,7 @@ class PedidoController extends Controller
         $pedido = Pedido::find($id);
         return view('pedido.confirmacion')->with('pedido', $pedido);
     }
-    public function confirmado($id)
-    {
-        $pedido = Pedido::find($id);
-        $pedido->estado = 'confirmado';
-        $pedido->save();
-        return redirect()->route('pedido.historial');
-    }
+
     //generar pdf
     public function download($id){
         $pdf = App::make('dompdf.wrapper');
