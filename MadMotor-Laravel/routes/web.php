@@ -2,7 +2,6 @@
 
 use App\Http\Controllers\CarritoController;
 use App\Http\Controllers\ClientesController;
-use App\Http\Controllers\PersonalController;
 use App\Http\Controllers\VehiculoController;
 use App\Http\Controllers\PiezaController;
 
@@ -18,13 +17,15 @@ Route::group(['prefix' => 'vehiculos'], function (){
 });
 
 Route::group(['prefix'=>'carrito'],function (){
-    Route::get('/index',[CarritoController::class, 'index'])->name('carrito.index');
-    Route::get('/carrito/add/{id}/{type}', [CarritoController::class, 'addToCart'])->name('carrito.add');
-    Route::get('/carrito/delete/{id}/{type}', [CarritoController::class, 'removeFromCart'])->name('carrito.delete');
+    Route::get('/',[CarritoController::class, 'index'])->name('carrito.index');
+    Route::post('/add',[CarritoController::class, 'add'])->name('carrito.add');
+    Route::delete('/{id}',[CarritoController::class, 'delete'])->name('carrito.delete');
+    Route::post('/checkout',[CarritoController::class, 'checkout'])->name('carrito.checkout');
 });
 Route::group(['prefix'=>'piezas'],function (){
     Route::get('/',[PiezaController::class, 'index'])->name('piezas.index');
-    Route::post('/create',[PiezaController::class, 'store'])->name('piezas.store');
+    Route::get('/create',[PiezaController::class, 'store'])->name('piezas.store');
+    Route::post('/create',[PiezaController::class, 'create'])->name('piezas.create');
     Route::put('/{id}',[PiezaController::class, 'update'])->name('piezas.update');
     Route::delete('/{id}',[PiezaController::class, 'destroy'])->name('piezas.destroy');
     Route::get('/{id}',[PiezaController::class, 'show'])->name('piezas.show');
@@ -44,7 +45,7 @@ Route::group(['prefix' => 'perfil'], function () {
 
 });
 
-/*Route::prefix('personal')->name('personal.')->group(function () {
+Route::prefix('personal')->name('personal.')->group(function () {
 
     Route::middleware(['guest:personal'])->group(function () {
         Route::view('/login', 'personal.login')->name('login');
@@ -54,19 +55,8 @@ Route::group(['prefix' => 'perfil'], function () {
     Route::middleware(['auth:personal'])->group(function () {
         Route::view('/home', 'personal.home')->name('home');
         Route::post('/logout', [PersonalAuthController::class, 'logout'])->name('logout');
-    });});*/
-
-    Route::group(['prefix' => 'personal'], function () {
-//        Route::get('/', [PersonalController::class, 'index'])->name('personal.index');
-        Route::get('/create', [PersonalController::class, 'create'])->name('personal.create');
-        Route::get('/show/{id}', [PersonalController::class, 'show'])->name('personal.show');
-        Route::get('/', [PersonalController::class, 'index'])->name('personal.search');
-//        Route::get('/{id}/edit', [PersonalController::class, 'edit'])->name('personal.edit')->middleware('auth');
-//        Route::get('/create', [PersonalController::class, 'create'])->name('personal.create')->middleware('auth');
-//        Route::get('/index', [PersonalController::class, 'index'])->name('personal.index')->middleware('auth');
-
-
     });
+});
 
 Route::get('/panel', function () {
     return view('admin.panel');

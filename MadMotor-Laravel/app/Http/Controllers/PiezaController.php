@@ -27,7 +27,7 @@ class PiezaController extends Controller
 
     public function store()
     {
-        $categorias = Categoria::where('is_deleted', 0)->orderBy('nombre', 'asc')->get();
+        $categorias = Categoria::where('isDeleted', 0)->orderBy('nombre', 'asc')->get();
         return view('piezas.create')->with('categorias', $categorias);
     }
 
@@ -36,19 +36,26 @@ class PiezaController extends Controller
         $validator = Validator::make($request->all(), [
             'nombre' => 'required|unique:piezas|max:255|min:3|string',
             'precio' => 'required|numeric|min:0.01',
+            'descripcion' => 'required|max:255|min:3|string',
             'cantidad' => 'required|integer|min:0',
-            'categoria_id' => 'required|string'
+            'categoria_id' => 'required|string',
+            'imagen' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048'
         ], $this->messages());
 
         if ($validator->fails()) {
             return redirect()->back()->withErrors($validator)->withInput();
         }
+        $imagen = $request->file('imagen');
+        $extension = $imagen->getClientOriginalExtension();
+        $nombre = time() . '.' . $extension;
+        $nombrefich= $imagen->storeAs('piezas', $nombre, 'public');
 
         $pieza = new Pieza();
         $pieza->nombre = $request->nombre;
+        $pieza->descripcion = $request->descripcion;
         $pieza->precio = $request->precio;
         $pieza->cantidad = $request->cantidad;
-        $pieza->image = $pieza::$IMAGE_DEFAULT;
+        $pieza->imagen = $nombrefich;
         $pieza->categoria_id = $request->categoria_id;
         $pieza->save();
         return redirect()->route('piezas.index');
@@ -75,7 +82,8 @@ class PiezaController extends Controller
                 'descripcion'=>'max:255|min:3|string',
                 'precio' => 'numeric',
                 'cantidad' => 'integer',
-                'categoria_id' => 'string'
+                'categoria_id' => 'string',
+                'imagen' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048'
             ], $this->messages());
 
             if ($validator->fails()) {
@@ -84,9 +92,22 @@ class PiezaController extends Controller
             }
 
             $pieza->nombre = $request->nombre;
+            $pieza->descripcion = $request->descripcion;
             $pieza->precio = $request->precio;
             $pieza->cantidad = $request->cantidad;
             $pieza->categoria_id = $request->categoria_id;
+            if ($request->hasFile('imagen')) {
+                $imagenPath = 'public/piezas/' . $pieza->imagen;
+                if ($pieza->imagen !== Pieza::$IMAGE_DEFAULT && Storage::exists($imagenPath)) {
+                    Storage::delete($imagenPath);
+                }
+                $imagen = $request->file('imagen');
+                $extension = $imagen->getClientOriginalExtension();
+                $nombre = time() . '.' . $extension;
+                $nombrefich= $imagen->storeAs('piezas', $nombre, 'public');
+                $pieza->imagen = $nombrefich;
+            }
+
             $pieza->save();
             return redirect()->route('piezas.index');
         } else {
@@ -94,58 +115,16 @@ class PiezaController extends Controller
         }
     }
 
-    public function editImage($id)
-    {
-        $pieza = Pieza::find($id);
-        if ($pieza) {
-            return view('piezas.image')->with('pieza', $pieza);
-        } else {
-            return response()->json(['message' => 'Pieza not found.'], 404);
-        }
-    }
 
-    public function updateImage(Request $request, $id)
-    {
-        $validator = Validator::make($request->all(), [
-            'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048'
-        ], $this->messages());
 
-        if ($validator->fails()) {
-            return response()->json(['errors' => $validator->errors()], 400);
-        }
-        try {
-            $pieza = Pieza::find($id);
 
-            if (!$pieza) {
-                return response()->json(['message' => 'Pieza not found.'], 404);
-            }
-
-            if ($pieza->image !== Pieza::$IMAGE_DEFAULT && Storage::exists($pieza->image)) {
-                Storage::delete($pieza->image);
-            }
-
-            $image = $request->file('image');
-            $filenombre= $image->getClientOriginalnombre();
-            $fileToSave = time() . $filenombre;
-            $image->storeAs('public/piezas', $fileToSave);
-            $pieza->image = $fileToSave;
-
-            $pieza->save();
-            return redirect()->route('piezas.index');
-        } catch (Exception $e) {
-            return redirect()->route('piezas.index');
-        }
-    }
 
     /*DELETE*/
     public function destroy($id)
     {
         $pieza = Pieza::find($id);
         if ($pieza) {
-            $imagePath = 'public/public/piezas/' . $pieza->image;
-            if ($pieza->image !== Pieza::$IMAGE_DEFAULT && Storage::exists($imagePath)) {
-                Storage::delete($imagePath);
-            }
+
             $pieza->delete();
             return redirect()->route('piezas.index');
         } else {
@@ -161,6 +140,11 @@ class PiezaController extends Controller
             'nombre.max' => 'El nombre es demasiado largo.',
             'nombre.min' => 'El nombre es demasiado corto.',
             'nombre.string' => 'El nombre debe ser una cadena de texto.',
+            'descripcion.required' => 'La descripción es obligatoria.',
+            'descripcion.max' => 'La descripción es demasiado larga.',
+            'descripcion.min' => 'La descripción es demasiado corta.',
+            'descripcion.string' => 'La descripción debe ser una cadena de texto.',
+
             'precio.required' => 'El precio es obligatorio.',
             'precio.numeric' => 'El precio debe ser un número.',
             'precio.min' => 'El precio debe ser al menos 0.01.',
@@ -169,9 +153,10 @@ class PiezaController extends Controller
             'cantidad.min' => 'El cantidad debe ser al menos 0.',
             'categoria_id.required' => 'La categoría es obligatoria.',
             'categoria_id.string' => 'La categoría debe ser una cadena de texto.',
-            'image.image' => 'La imagen debe ser una imagen.',
-            'image.mimes' => 'La imagen debe ser un archivo de tipo: jpeg, png, jpg, gif, svg.',
-            'image.max' => 'La imagen no puede ser mayor de 2048 kilobytes.'
+            'imagen.imagen' => 'La imagenn debe ser una imagenn.',
+            'imagen.mimes' => 'La imagenn debe ser un archivo de tipo: jpeg, png, jpg, gif, svg.',
+            'imagen.max' => 'La imagenn no puede ser mayor de 2048 kilobytes.',
+            'imagen.required' => 'La imagen es obligatoria.',
         ];
     }
 }

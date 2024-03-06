@@ -1,9 +1,11 @@
+<?php use App\Models\Pieza?>
 @extends('main')
 @section('content')
+
     <div
         class="min-w-screen h-screen animated fadeIn faster bg-gray-700  fixed  left-0 top-0 flex justify-center items-center inset-0  outline-none focus:outline-none bg-no-repeat bg-center bg-cover"
         id="modal-id">
-        <div class="   inset-0 z-0"></div>
+        {!! $piezas->links()  !!}
         @foreach($piezas as $pieza)
             <div class="relative min-h-screen flex flex-col items-center justify-center grid- grid-col-3 ">
                 <div class="container">
@@ -21,8 +23,14 @@
                                             </svg>
                                         </button>
                                     </div>
-                                    <img src="{{$pieza->imagen}}" alt="Just a flower"
-                                         class=" w-full   object-fill  rounded-2xl">
+                                    @if ($pieza->imagen != Pieza::$IMAGE_DEFAULT)
+                                        <img src="{{ asset('storage/'.$pieza->imagen) }}"
+                                             class="img-sm border"
+                                             alt="pieza">
+                                    @else
+                                        <img src="{{ $pieza->imagen }}" class="img-sm border"
+                                             alt="pieza">
+                                    @endif
                                 </div>
                                 <div class="flex-auto justify-evenly">
                                     <div class="flex flex-wrap ">
@@ -39,10 +47,24 @@
                                         <div class="flex items-center w-full justify-between min-w-0 ">
                                             <h2 class="text-lg mr-auto cursor-pointer text-gray-200 hover:text-purple-500 truncate ">
                                                 {{$pieza->nombre}}</h2>
-                                            <div
-                                                class="flex items-center bg-green-400 text-white text-xs px-2 py-1 ml-3 rounded-lg">
-                                                INSTOCK
-                                            </div>
+                                            @auth()
+                                                @if(Auth::user()->role === 'admin')
+                                                    <form action="{{ route('piezas.destroy', $pieza->id) }}"
+                                                          method="POST"
+                                                          class="formBorrar">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        <button type="button" data-bs-toggle="modal" data-bs-target="#exampleModal{{$pieza->id}}" class="inline-flex items-center justify-center space-x-2 py-1 px-4 border border-transparent text-sm font-medium rounded text-white-600 hover:text-white-700 bg-red-400 hover:bg-green-100 transition-colors">
+                                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                                                                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-11a1 1 0 10-2 0v2H7a1 1 0 100 2h2v2a1 1 0 102 0v-2h2a1 1 0 100-2h-2V7z" clip-rule="evenodd"/>
+                                                            </svg>
+                                                            <div>Eliminar</div>
+                                                        </button>
+
+                                                    </form>
+
+                                                @endif
+                                            @endauth
                                         </div>
                                     </div>
                                     <div class="text-xl text-white font-semibold mt-1">{{$pieza->precio}}</div>
@@ -112,7 +134,8 @@
                                                     </button>
                                                 </a>
                                             @endif
-                                            @endauth
+
+                                        @endauth
 
 
                                     </div>
@@ -122,8 +145,46 @@
                     </div>
                 </div>
             </div>
+
         @endforeach
+        @auth()
+            @if(Auth::user()->role === 'admin')
+                <a href="{{route('piezas.create')}}">
+                    <button
+                        class="inline-flex items-center justify-center space-x-2 border border-transparent text-sm font-medium rounded-full w-12 h-12 text-white bg-green-600 hover:bg-green-700 transition-colors">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                             stroke="currentColor" class="w-6 h-6">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                  d="M12 9v6m3-3H9m12 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/>
+                        </svg>
+
+                    </button>
+                </a>
+
+            @endif
+        @endauth
 
 
     </div>
+    @foreach ($piezas as $pieza)
+        <div class="modal fade " id="exampleModal{{$pieza->id}}" tabindex="-1" aria-labelledby="exampleModalLabel{{$pieza->id}}" aria-hidden="true">
+            <div class="modal-dialog ">
+                <div class="modal-content bg-secondary text-white">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="exampleModalLabel{{$pieza->id}}">¿Desea borrar esta pieza?</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-footer">
+                        <form action="{{ route('piezas.destroy', $pieza->id) }}" method="POST">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="btn btn-danger">Sí, borrar</button>
+                        </form>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    @endforeach
+
 @endsection
