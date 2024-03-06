@@ -17,7 +17,7 @@ class Personal extends Authenticatable {
     protected $fillable = [
         'nombre',
         'apellidos',
-        'fechaNacimiento',
+        'fecha_nacimiento',
         'dni',
         'direccion',
         'telefono',
@@ -25,7 +25,7 @@ class Personal extends Authenticatable {
         'iban',
         'email',
         'password',
-        'rol',
+        'role',
         'isDeleted',
     ];
     public $casts = [
