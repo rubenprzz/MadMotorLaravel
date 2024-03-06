@@ -95,5 +95,28 @@ class CarritoController extends Controller
         return redirect()->route('carrito.index')->with('success', 'Producto eliminado del carrito');
     }
 
+    //Obtener formulario del carrito.checkout
+    public function checkout()
+    {
+        $cart = session()->get('cart');
+
+        // Verificar la cantidad de cada artículo en la base de datos
+        foreach ($cart as $item) {
+            $product = null;
+            if ($item['type'] == 'vehiculo') {
+                $product = Vehiculo::find($item['product']->id);
+            } else if ($item['type'] == 'pieza') {
+                $product = Pieza::find($item['product']->id);
+            }
+
+            if ($product && $product->cantidad < $item['quantity']) {
+                // No hay suficientes en la base de datos, redirigir con un mensaje de error
+                return redirect()->route('carrito.index')->with('error', 'No hay suficiente cantidad de ' . ($item['type'] == 'vehiculo' ?
+                        $product->marca . ' ' . $product->modelo : $product->nombre) . ' en stock');
+            }
+        }
+        return view('carrito.checkout');
+    }
+
 
 }

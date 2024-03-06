@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\LineaDePedido;
 use App\Models\Pedido;
+use App\Models\Pieza;
+use App\Models\Vehiculo;
 use Illuminate\Http\Request;
 
 class PedidoController extends Controller
@@ -19,7 +21,7 @@ class PedidoController extends Controller
         $pedido->datosTarjeta = $request->input('datosTarjeta');
         $pedido->direccion = $request->input('direccion');
         $pedido->total = array_sum(array_column($cart, 'line_total'));
-        $pedido->estado = 'pendiente';
+        $pedido->estado = 'confirmado';
         $pedido->save();
 
         // Crear una línea de pedido para cada artículo en el carrito
@@ -39,10 +41,36 @@ class PedidoController extends Controller
             $lineaDePedido->save();
         }
 
+        //Una vez que todos los productos estén en la línea de pedido, restar cantidad de stock
+        foreach ($cart as $item) {
+            if ($item['type'] == 'vehiculo') {
+                $vehiculo = Vehiculo::find($item['product']->id);
+                $vehiculo->cantidad -= $item['quantity'];
+                $vehiculo->save();
+            } else {
+                $pieza = Pieza::find($item['product']->id);
+                $pieza->cantidad -= $item['quantity'];
+                $pieza->save();
+            }
+        }
+
         // Vaciar el carrito
         session()->forget('cart');
 
         // Redirigir al usuario a la página de confirmación
         return redirect()->route('pedido.confirmacion', ['id' => $pedido->id]);
+    }
+
+    public function confirmacion($id)
+    {
+        $pedido = Pedido::find($id);
+        return view('pedido.confirmacion')->with('pedido', $pedido);
+    }
+    public function confirmado($id)
+    {
+        $pedido = Pedido::find($id);
+        $pedido->estado = 'confirmado';
+        $pedido->save();
+        return redirect()->route('pedido.historial');
     }
 }

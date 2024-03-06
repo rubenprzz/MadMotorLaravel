@@ -9,6 +9,11 @@
             <div class="container mx-auto mt-5 px-4">
                 <h1 class="text-2xl font-semibold text-white mb-4">Carrito de compra</h1>
                 <div class="flex flex-col md:flex-row gap-4">
+                    @if(session('error'))
+                        <div class="alert alert-danger" role="alert">
+                            {{ session('error') }}
+                        </div>
+                    @endif
                     <div class="md:w-3/4">
                         <div class="bg-white rounded-lg shadow-md p-6 mb-4 overflow-y-auto" style="max-height: 60vh;">
                             @if(session('success'))
@@ -100,33 +105,35 @@
                                 <span class="font-semibold">Total</span>
                                 <span class="font-semibold">{{number_format($totalDelCarrito, 2, ',', '.')}}</span>
                             </div>
-                            <button class="bg-blue-500 text-white py-2 px-4 rounded-lg mt-4 w-full">Checkout</button>
+                            <a href="{{route('carrito.checkout')}}">
+                            <button  class="bg-blue-500 text-white py-2 px-4 rounded-lg mt-4 w-full">Checkout</button>
+                            </a>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </section>
-
+    @foreach($cart as $item)
+        <tr>
+            <td>
+                @if($item['type'] == 'vehiculo')
+                    {{ $item['product']->marca }} {{ $item['product']->modelo }}
+                @else
+                    {{ $item['product']->nombre }}
+                @endif
+            </td>
+            <td>{{ ucfirst($item['type']) }}</td>
+            <td>{{ $item['quantity'] }}</td>
+            <td> {{ $item['price'] }} </td>
+        </tr>
+        <!-- Scrip de borrado de success alert -->
+        <script>
+            window.setTimeout(function () {
+                var alert = document.getElementById('success-alert');
+                if (alert) alert.style.display = 'none';
+            }, 2000);
+        </script>
+    @endforeach
 @endsection
-@foreach($cart as $item)
-    <tr>
-        <td>
-            @if($item['type'] == 'vehiculo')
-                {{ $item['product']->marca }} {{ $item['product']->modelo }}
-            @else
-                {{ $item['product']->nombre }}
-            @endif
-        </td>
-        <td>{{ ucfirst($item['type']) }}</td>
-        <td>{{ $item['quantity'] }}</td>
-        <td> {{ $item['price'] }} </td>
-    </tr>
-    <!-- Scrip de borrado de success alert -->
-    <script>
-        window.setTimeout(function () {
-            var alert = document.getElementById('success-alert');
-            if (alert) alert.style.display = 'none';
-        }, 2000);
-    </script>
-@endforeach
+
