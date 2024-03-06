@@ -54,8 +54,8 @@ class VehiculoController extends Controller
         if ($request->has('orden')) {
             $orden = $request->orden;
             switch ($orden) {
-                case 'precioDesc':
-                    $query->orderByPrecioDesc();
+                case 'precioAsc':
+                    $query->orderByPrecioAsc();
                     break;
                 case 'yearAcs':
                     $query->orderByYearAcs();
@@ -70,7 +70,7 @@ class VehiculoController extends Controller
                     $query->orderByKmDesc();
                     break;
                 default:
-                    $query->orderByPrecioAcs();
+                    $query->orderByPrecioDesc();
                     break;
             }
         }

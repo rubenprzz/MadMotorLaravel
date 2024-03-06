@@ -4,6 +4,16 @@
 @section('title', 'Vehiculos')
 @section('content')
     <section class="bg-gray-900 font text-white">
+        @if($errors->any())
+            <div class="alert alert-danger">
+                <h6>No se pudo añadir el producto</h6>
+                <ul>
+                    @foreach($errors->all() as $error)
+                        <li>{{$error}}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
         <div class="container rounded-4 pt-5 shadow-lg bg-gray-700 ">
             <div class="pt-20">
                 <h1 class="text-3xl  font-bold text-center underline decoration-sky-500">
@@ -159,36 +169,68 @@
                                                 </a>
                                             </aside>
                                             <div class="col-md-5">
-                                                <div class="">
-                                                    <a href="#"
-                                                       class="h5 title"> {{$vehiculo->marca}} {{$vehiculo->modelo}} </a>
-                                                    <div class="d-flex align-items-center">
-                                                        <span class="text-muted small">Año: {{$vehiculo->year}}</span>
-                                                    </div>
-                                                    <div class="d-flex align-items-center">
-                                                        <span class="">Kilómetros: {{$vehiculo->km}}</span>
-                                                    </div>
+                                                <div class="bg-white p-4 rounded-md shadow-sm">
+                                                    <a href="#" class="h3 title text-2xl font-bold text-gray-900">
+                                                        {{$vehiculo->marca}} {{$vehiculo->modelo}}
+                                                    </a>
 
+                                                    <div class="flex flex-wrap mt-4">
+                                                        <div class="flex items-center mr-4">
+                                                            <span class="text-gray-500 text-sm">Año:</span>
+                                                            <span
+                                                                class="ml-1 text-gray-900 font-medium">{{$vehiculo->year}}</span>
+                                                        </div>
 
+                                                        <div class="flex items-center mr-4">
+                                                            <span class="text-gray-500 text-sm">Kilómetros:</span>
+                                                            <span
+                                                                class="ml-1 text-gray-900 font-medium">{{$vehiculo->km}}</span>
+                                                        </div>
+
+                                                        <div class="flex items-center">
+                                                            <span class="text-gray-500 text-sm">Categoría:</span>
+                                                            <span
+                                                                class="ml-1 text-gray-900 font-medium">{{$vehiculo->categoria->nombre}}</span>
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
+
                                             <div class="col-12 col-md-3">
-                                                <div class="d-flex align-items-center">
-                                                    <span class="h4 mb-0 text-danger">{{$vehiculo->precio}}€</span>
+                                                <div
+                                                    class=" items-center justify-between py-8 px-8 bg-gray-100 rounded-xl shadow-xl">
+                                                    <span
+                                                        class="text-3xl font-bold text-red-500">{{$vehiculo->precio}}€</span>
 
+                                                    @if ($vehiculo->cantidad > 0)
+                                                        <span class="text-green-500 text-sm m-2"> Disponible</span>
+                                                    @else
+                                                        <span class="text-red-500 text-sm m-2"> No Disponible</span>
+                                                    @endif
                                                 </div>
 
-                                                <span class="text-success small"><span
-                                                        class="fas fa-shipping-fast me-1"></span>Disponible!</span>
-                                                <div class="d-grid gap-2 mt-4">
-                                                    <a class="btn btn-tertiary btn-sm" href="#">
-                                                        Details
+                                                <div class=" justify-end mt-4">
+                                                    <a href="#" class="btn btn-outline-secondary text-sm mr-2">
+                                                        Detalles
                                                     </a>
-                                                    <a href="#" class="btn btn-check btn-sm">
-                                                        Añadir al Carrito
-                                                    </a>
+                                                    @if($vehiculo->cantidad > 0)
+                                                        <a href="{{ route('carrito.add', ['id' => $vehiculo->id, 'type' => 'vehiculo']) }}"                                                           class=" btn btn-primary text-sm">
+                                                            Añadir al carrito
+                                                            <svg class=" w-8 h-8 fill-current"
+                                                                 viewbox="0 0 24 24">
+                                                                <path
+                                                                    d="M17,18C15.89,18 15,18.89 15,20A2,2 0 0,0 17,22A2,2 0 0,0 19,20C19,18.89 18.1,18 17,18M1,2V4H3L6.6,11.59L5.24,14.04C5.09,14.32 5,14.65 5,15A2,2 0 0,0 7,17H19V15H7.42A0.25,0.25 0 0,1 7.17,14.75C7.17,14.7 7.18,14.66 7.2,14.63L8.1,13H15.55C16.3,13 16.96,12.58 17.3,11.97L20.88,5.5C20.95,5.34 21,5.17 21,5A1,1 0 0,0 20,4H5.21L4.27,2M7,18C5.89,18 5,18.89 5,20A2,2 0 0,0 7,22A2,2 0 0,0 9,20C9,18.89 8.1,18 7,18Z"/>
+                                                            </svg>
+                                                        </a>
+                                                    @else
+                                                        <a href="#"
+                                                           class="btn btn-danger text-sm disabled">
+                                                            Agotado
+                                                        </a>
+                                                    @endif
                                                 </div>
                                             </div>
+
                                         </div>
                                     </div>
                                 @endforeach
