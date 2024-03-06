@@ -68,8 +68,75 @@ class VehiculoSeeder extends Seeder
                 'categoria_id' => 4,
                 'created_at' => now(),
                 'updated_at' => now()
+            ],
+            [
+                'marca' => 'Toyota',
+                'modelo' => 'Corolla',
+                'year' => 2021,
+                'km' => 0,
+                'precio' => 25000,
+                'cantidad' => 100,
+                'categoria_id' => 4,
+                'created_at' => now(),
+                'updated_at' => now()
+            ],
+            [
+                'marca' => 'Chevrolet',
+                'modelo' => 'Aveo',
+                'year' => 2015,
+                'km' => 100000,
+                'precio' => 10000,
+                'cantidad' => 100,
+                'categoria_id' => 4,
+                'created_at' => now(),
+                'updated_at' => now()
+            ],
+            [
+                'marca' => 'Chevrolet',
+                'modelo' => 'Spark',
+                'year' => 2015,
+                'km' => 100000,
+                'precio' => 10000,
+                'cantidad' => 100,
+                'categoria_id' => 4,
+                'created_at' => now(),
+                'updated_at' => now()
+            ],
+            [
+                'marca' => 'Chevrolet',
+                'modelo' => 'Cruze',
+                'year' => 2015,
+                'km' => 100000,
+                'precio' => 10000,
+                'cantidad' => 100,
+                'categoria_id' => 4,
+                'created_at' => now(),
+                'updated_at' => now()
+            ],
+            [
+                'marca' => 'Chevrolet',
+                'modelo' => 'Malibu',
+                'year' => 2015,
+                'km' => 100000,
+                'precio' => 10000,
+                'cantidad' => 100,
+                'categoria_id' => 4,
+                'created_at' => now(),
+                'updated_at' => now()
+            ],
+            [
+                'marca' => 'Chevrolet',
+                'modelo' => 'Camaro',
+                'year' => 2015,
+                'km' => 100000,
+                'precio' => 10000,
+                'cantidad' => 100,
+                'categoria_id' => 4,
+                'created_at' => now(),
+                'updated_at' => now()
             ]
         ]);
+
 
     }
 }

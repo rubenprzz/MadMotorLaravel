@@ -27,10 +27,6 @@
             class="flex text-lg transition-colors duration-500 text-current font-medium inline-block px-4 py-2 space-x-4"
         >
             @guest
-                <li class=" transition-colors duration-500 text-current font-medium inline-block px-3 py-2"><a href=" ">Carrito</a>
-                </li>
-
-
                 <li class=" transition-colors duration-500 text-current font-medium inline-block px-1 py-2  "><a
                         href="{{route('login')}}">Iniciar Sesión</a></li>
                 <li><a class="transition-colors duration-500 text-current font-medium inline-block px-3 py-2"
@@ -39,7 +35,7 @@
             @endguest
 
             @auth
-                <li class=" transition-colors duration-500 text-current font-medium inline-block px-2 py-2"><a href="#">Carrito</a>
+                <li class=" transition-colors duration-500 text-current font-medium inline-block px-2 py-2"><a href="#">Carrito <span class="badge rounded-3 bg-primary"> {{session()->get('cart') ? count(session()->get('cart')) : 0}} </span></a>
                 </li>
 
                 <li class=" transition-colors duration-500 text-current font-medium inline-block px-2 py-2"><a

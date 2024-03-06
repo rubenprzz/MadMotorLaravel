@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CarritoController;
 use App\Http\Controllers\ClientesController;
 use App\Http\Controllers\VehiculoController;
 use App\Http\Controllers\PiezaController;
@@ -13,6 +14,13 @@ Route::get('/', 'App\Http\Controllers\VehiculoController@hero')->name('vehiculos
 
 Route::group(['prefix' => 'vehiculos'], function (){
     Route::get('/', [VehiculoController::class,'index'])->name('vehiculos.index');
+});
+
+Route::group(['prefix'=>'carrito'],function (){
+    Route::get('/',[CarritoController::class, 'index'])->name('carrito.index');
+    Route::post('/add',[CarritoController::class, 'add'])->name('carrito.add');
+    Route::delete('/{id}',[CarritoController::class, 'delete'])->name('carrito.delete');
+    Route::post('/checkout',[CarritoController::class, 'checkout'])->name('carrito.checkout');
 });
 Route::group(['prefix'=>'piezas'],function (){
     Route::get('/',[PiezaController::class, 'index'])->name('piezas.index');

@@ -10,10 +10,11 @@ class VehiculoController extends Controller
 {
     public function hero()
     {
-        $vehiculos = Vehiculo::all()->take(6); //take(6) para que solo muestre 6 vehiculos (para que no se vea tan cargado el home
-        $piezas = Pieza::all()->take(6); //take(6) para que solo muestre 6 piezas (para que no se vea tan cargado el home
+        $vehiculos = Vehiculo::all()->take(8); //take(6) para que solo muestre 6 vehiculos (para que no se vea tan cargado el home
+        $piezas = Pieza::all()->take(8); //take(6) para que solo muestre 6 piezas (para que no se vea tan cargado el home
         return view('hero')->with('vehiculos', $vehiculos)->with('piezas', $piezas);
     }
+
     public function index(Request $request)
     {
         $query = Vehiculo::query();
@@ -73,11 +74,12 @@ class VehiculoController extends Controller
                     break;
             }
         }
+        //isDeleted and paginate 10
+        $query->isDeleted();
+        $query->paginate(10);
+        //links paginate
+        $vehiculos = $query->paginate(10)->appends($request->all());
 
-        $vehiculos = $query->get();
-        $piezas = Pieza::all();
-
-
-        return view('vehiculos.index')->with('vehiculos', $vehiculos)->with('piezas', $piezas);
+        return view('vehiculos.index')->with('vehiculos', $vehiculos);
     }
 }
