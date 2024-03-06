@@ -17,10 +17,9 @@ Route::group(['prefix' => 'vehiculos'], function (){
 });
 
 Route::group(['prefix'=>'carrito'],function (){
-    Route::get('/',[CarritoController::class, 'index'])->name('carrito.index');
-    Route::post('/add',[CarritoController::class, 'add'])->name('carrito.add');
-    Route::delete('/{id}',[CarritoController::class, 'delete'])->name('carrito.delete');
-    Route::post('/checkout',[CarritoController::class, 'checkout'])->name('carrito.checkout');
+    Route::get('/index',[CarritoController::class, 'index'])->name('carrito.index');
+    Route::get('/carrito/add/{id}/{type}', [CarritoController::class, 'addToCart'])->name('carrito.add');
+    Route::get('/carrito/delete/{id}/{type}', [CarritoController::class, 'removeFromCart'])->name('carrito.delete');
 });
 Route::group(['prefix'=>'piezas'],function (){
     Route::get('/',[PiezaController::class, 'index'])->name('piezas.index');

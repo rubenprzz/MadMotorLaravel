@@ -35,7 +35,7 @@
             @endguest
 
             @auth
-                <li class=" transition-colors duration-500 text-current font-medium inline-block px-2 py-2"><a href="#">Carrito <span class="badge rounded-3 bg-primary"> {{session()->get('cart') ? count(session()->get('cart')) : 0}} </span></a>
+                <li class=" transition-colors duration-500 text-current font-medium inline-block px-2 py-2"><a href="{{route('carrito.index')}}">Carrito <span class="badge rounded-3 bg-primary"> {{session()->get('cart') ? count(session()->get('cart')) : 0}} </span></a>
                 </li>
 
                 <li class=" transition-colors duration-500 text-current font-medium inline-block px-2 py-2"><a
