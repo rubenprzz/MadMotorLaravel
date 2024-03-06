@@ -10,6 +10,12 @@
                 <div class="flex flex-col md:flex-row gap-4">
                     <div class="md:w-3/4">
                         <div class="bg-white rounded-lg shadow-md p-6 mb-4">
+                            @if(session('success'))
+                                <div id="success-alert" class="bg-green-100 border-l-4 border-green-500 text-green-700 p-4 mb-4" role="alert">
+                                    <p class="font-bold">Success</p>
+                                    <p>{{ session('success') }}</p>
+                                </div>
+                            @endif
                             <table class="w-full">
                                 <thead>
                                 <tr>
@@ -17,6 +23,7 @@
                                     <th class="text-left font-semibold">Precio</th>
                                     <th class="text-left font-semibold">Cantidad</th>
                                     <th class="text-left font-semibold">Total</th>
+                                    <th class="text-left font-semibold">Acciones</th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -60,6 +67,17 @@
                                         </td>
                                         <td class="py-4">
                                             {{ $item['line_total'] }} €
+                                        </td>
+                                        <td class="py-4">
+                                            @if($item['type'] == 'vehiculo')
+                                                <a class="btn btn-danger"
+                                                   href="{{route('carrito.delete',['id' => $item['product']->id, 'type' => 'vehiculo'] )}}">Borrar
+                                                    Item</a>
+                                            @else
+                                                <a class="btn btn-danger"
+                                                   href="{{route('carrito.delete',['id' => $item['product']->id, 'type' => 'pieza'] )}}">Borrar
+                                                    Item</a>
+                                            @endif
                                         </td>
                                     </tr>
                                 @endforeach
@@ -109,4 +127,11 @@
         <td>{{ $item['quantity'] }}</td>
         <td> {{ $item['price'] }} </td>
     </tr>
+    <!-- Scrip de borrado de success alert -->
+    <script>
+        window.setTimeout(function() {
+            var alert = document.getElementById('success-alert');
+            if (alert) alert.style.display = 'none';
+        }, 2000);
+    </script>
 @endforeach

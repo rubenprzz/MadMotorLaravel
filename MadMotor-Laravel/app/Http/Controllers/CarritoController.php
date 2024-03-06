@@ -76,15 +76,10 @@ class CarritoController extends Controller
         if (isset($cart[$key])) {
             unset($cart[$key]);
 
-            $product = null;
-            if ($type == 'vehiculo') {
-                $product = Vehiculo::find($id);
-            } else if ($type == 'pieza') {
-                $product = Pieza::find($id);
-            }
-
             // Guardar el carrito actualizado en la sesión
             session()->put('cart', $cart);
+            //mantenerse en la misma pagina
+            return redirect()->route('carrito.index')->with('success', 'Producto eliminado del carrito');
 
 
         }
