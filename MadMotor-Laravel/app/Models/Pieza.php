@@ -38,7 +38,6 @@ class Pieza extends Model
     protected $casts = [
         'isDeleted' => 'boolean',
     ];
-    //uuid para
 
 
     public function category()
