@@ -19,6 +19,10 @@ class CarritoController extends Controller
 
     public function addToCart($id, $type)
     {
+        //si no hay sesion iniciada auth que mande al login
+        if (!auth()->check()) {
+            return redirect()->route('login');
+        }
         // Inicializar el carrito si no existe
         if (!session()->has('cart')) {
             session()->put('cart', []);

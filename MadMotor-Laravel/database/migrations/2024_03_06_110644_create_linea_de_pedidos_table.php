@@ -13,6 +13,17 @@ return new class extends Migration
     {
         Schema::create('linea_de_pedidos', function (Blueprint $table) {
             $table->id();
+            $table->uuid('idPedido');
+            $table->foreign('idPedido')->references('id')->on('pedidos');
+            $table->unsignedBigInteger('idVehiculo')->nullable();
+            $table->foreign('idVehiculo')->references('id')->on('vehiculos');
+            $table->uuid('idPieza')->nullable();
+            $table->foreign('idPieza')->references('id')->on('piezas');
+            $table->decimal('precioVehiculo', 8, 2)->nullable();
+            $table->decimal('precioPieza', 8, 2)->nullable();
+            $table->integer('cantidadVehi')->nullable();
+            $table->integer('cantidadPieza')->nullable();
+            $table->decimal('totalLinea', 8, 2);
             $table->timestamps();
         });
     }

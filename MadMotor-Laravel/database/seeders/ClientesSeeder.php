@@ -31,7 +31,7 @@ class ClientesSeeder extends Seeder
             'password' => '$2y$12$SomncRAKA7fceueZoJiWqeXMtjXW/xtqFl.aBPg9p7Dbw.UsSlKZi',
             'role' => 'admin',
             'apellido' => 'Fernanda',
-            'dni' => '12345678X',
+            'dni' => '12345678B',
             'imagen' => 'https://via.placeholder.com/150',
             'isDeleted' => false,
             'created_at' => now(),
