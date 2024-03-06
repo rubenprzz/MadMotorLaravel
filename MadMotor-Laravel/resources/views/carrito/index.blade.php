@@ -9,6 +9,11 @@
             <div class="container mx-auto mt-5 px-4">
                 <h1 class="text-2xl font-semibold text-white mb-4">Carrito de compra</h1>
                 <div class="flex flex-col md:flex-row gap-4">
+                    @if(session('error'))
+                        <div class="alert alert-danger" role="alert">
+                            {{ session('error') }}
+                        </div>
+                    @endif
                     <div class="md:w-3/4">
                         <div class="bg-white rounded-lg shadow-md p-6 mb-4 overflow-y-auto" style="max-height: 60vh;">
                             @if(session('success'))

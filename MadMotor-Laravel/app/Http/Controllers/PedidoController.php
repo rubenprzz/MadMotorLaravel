@@ -13,6 +13,8 @@ class PedidoController extends Controller
         // Obtener el carrito de la sesión
         $cart = session()->get('cart');
 
+
+
         // Crear un nuevo pedido
         $pedido = new Pedido();
         $pedido->idCliente = auth()->user()->id;
