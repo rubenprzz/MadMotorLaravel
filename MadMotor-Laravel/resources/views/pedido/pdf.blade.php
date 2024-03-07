@@ -65,6 +65,7 @@
                     <li>Número de pedido: {{ $pedido->id }}</li>
                     <li>Fecha: {{ $pedido->created_at->format('d/m/Y') }}</li>
                     <li>Total: {{ $pedido->total }} €</li>
+                    <li>Dirección de envío: {{ $pedido->direccion }}</li>
                     <li>Estado: {{ $pedido->estado }}</li>
                 </ul>
             </div>
