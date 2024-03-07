@@ -1,3 +1,4 @@
+@php use App\Models\Vehiculo; @endphp
 @extends('main')
 @section('content')
 
@@ -26,15 +27,20 @@
         @if(count($vehiculos)>0)
             <div class="flex flex-wrap justify-center">
                 @foreach($vehiculos as $vehiculo)
-                    <a href="#">
+                    <a href="{{route('vehiculos.show',$vehiculo->id)}}">
                         <div class="row flex overflow-x-auto">
                             <div
                                 class="m-4 border-gray-700 bg-gray-800  shadow-md bg-clip-border rounded-xl ring-2 ring-white ring-opacity-20 max-w-sm hover:bg-gray-700">
                                 <div
                                     class="relative mx-4 mt-4 overflow-hidden  bg-white bg-clip-border rounded-xl h-80">
-                                    <img
-                                        src="{{$vehiculo->imagen}}"
-                                        alt="card-image" class="object-cover w-full h-full"/>
+                                    @if ($vehiculo->imagen != Vehiculo::$IMAGEN_DEFAULT)
+                                        <img src="{{ asset('storage/'.$vehiculo->imagen) }}"
+                                             class="object-cover w-full h-full"
+                                             alt="coche">
+                                    @else
+                                        <img src="{{ $vehiculo->imagen }}" class="object-cover w-full h-full"
+                                             alt="coche">
+                                    @endif
                                 </div>
                                 <div class="p-6">
                                     <div class="flex items-center justify-between mb-2">

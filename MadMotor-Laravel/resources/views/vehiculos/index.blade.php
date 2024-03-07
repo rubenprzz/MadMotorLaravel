@@ -150,7 +150,7 @@
                                     <div class="card shadow rounded-lg p-4">
                                         <div class="row align-items-center">
                                             <aside class="col-md-4">
-                                                <a href="#">
+                                                <a href="{{route('vehiculos.show',$vehiculo->id)}}">
                                                     @if ($vehiculo->imagen != Vehiculo::$IMAGEN_DEFAULT)
                                                         <img src="{{ asset('storage/'.$vehiculo->imagen) }}"
                                                              class="h-auto rounded-lg shadow-none transition-shadow duration-300 ease-in-out hover:shadow-lg hover:shadow-black/30"
@@ -163,7 +163,7 @@
                                             </aside>
                                             <div class="col-md-5">
                                                 <div class="bg-white p-4 rounded-md shadow-lg">
-                                                    <a href="#" class="h3 title text-2xl relative inline cursor-pointer text-xl font-medium before:bg-violet-600  before:absolute before:-bottom-1 before:block before:h-[2px] before:w-full before:origin-bottom-right before:scale-x-0 before:transition before:duration-300 before:ease-in-out hover:before:origin-bottom-left hover:before:scale-x-100">
+                                                    <a href="{{route('vehiculos.show',$vehiculo->id)}}" class="h3 title text-2xl relative inline cursor-pointer text-xl font-medium before:bg-violet-600  before:absolute before:-bottom-1 before:block before:h-[2px] before:w-full before:origin-bottom-right before:scale-x-0 before:transition before:duration-300 before:ease-in-out hover:before:origin-bottom-left hover:before:scale-x-100">
                                                         {{$vehiculo->marca}} {{$vehiculo->modelo}}
                                                     </a>
 

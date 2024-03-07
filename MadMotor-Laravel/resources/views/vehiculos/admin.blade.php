@@ -49,7 +49,7 @@
                     <tbody>
                     @foreach ($vehiculos as $vehiculo)
                         <tr>
-                            <td class="border px-4 py-2">{{ $vehiculo->marca }}</td>
+                             <td class="border px-4 py-2">{{ $vehiculo->marca }}</td>
                             <td class="border px-4 py-2">{{ $vehiculo->modelo }}</td>
                             <td class="border px-4 py-2">{{ $vehiculo->year }}</td>
                             <td class="border px-4 py-2">
