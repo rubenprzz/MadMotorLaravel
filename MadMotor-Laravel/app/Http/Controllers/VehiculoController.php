@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Categoria;
 use App\Models\Pieza;
 use App\Models\Vehiculo;
 use Illuminate\Http\Request;
@@ -81,4 +82,12 @@ class VehiculoController extends Controller
 
         return view('vehiculos.index')->with('vehiculos', $vehiculos);
     }
+
+    function create()
+    {
+        $categorias = Categoria::all();
+        return view('vehiculos.create')->with('categorias', $categorias);
+    }
+
+
 }

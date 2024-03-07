@@ -65,8 +65,7 @@
                     </div>
                 @endforeach
             </div>
-            (( $personals->links() ))
-
+            {{ $personals->links()}}
         </div>
     </section><!-- End Team Section -->
 

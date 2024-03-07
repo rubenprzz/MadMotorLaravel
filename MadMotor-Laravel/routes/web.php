@@ -72,9 +72,9 @@ Route::group(['prefix' => 'personal'], function () {
 
 
 //Vistas para panel de administrador de clientes
-Route::get('/panel/piezas', [PiezaController::class, 'indexAdmin'])->name('piezas.adminIndex');
-Route::get('/panel/piezas/{id}', [PiezaController::class, 'adminShow'])->name('piezas.adminShow');
-Route::get('/clientes', [ClientesController::class, 'index'])->name('cliente.index');
-Route::get('/clientes/{id}', [ClientesController::class, 'adminShow'])->name('cliente.show');
-Route::get('/clientes/{id}/edit', [ClientesController::class, 'adminEdit'])->name('cliente.adminEdit');
+Route::get('/panel/piezas', [PiezaController::class, 'indexAdmin'])->name('piezas.adminIndex')->middleware('auth', 'admin');
+Route::get('/panel/piezas/{id}', [PiezaController::class, 'adminShow'])->name('piezas.adminShow')->middleware('auth', 'admin');
+Route::get('/clientes', [ClientesController::class, 'index'])->name('cliente.index')->middleware('auth', 'admin');
+Route::get('/clientes/{id}', [ClientesController::class, 'adminShow'])->name('cliente.show')->middleware('auth', 'admin');
+Route::get('/clientes/{id}/edit', [ClientesController::class, 'adminEdit'])->name('cliente.adminEdit')->middleware('auth', 'admin');
 
