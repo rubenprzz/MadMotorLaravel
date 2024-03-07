@@ -65,8 +65,25 @@ class PedidoController extends Controller
 
     public function confirmacion($id)
     {
+        if (!uuid_is_valid($id)) {
+            return redirect()->route('vehiculos.hero');
+        }
+
         $pedido = Pedido::find($id);
+        $this->authorize('view', $pedido);
         return view('pedido.confirmacion')->with('pedido', $pedido);
+    }
+
+    public function historial()
+    {
+        $pedidos = Pedido::where('idCliente', auth()->user()->id)->get();
+        return view('pedido.historial')->with('pedidos', $pedidos);
+    }
+    public function downloadHistorial(){
+        $pdf = App::make('dompdf.wrapper');
+        $pedidos = Pedido::where('idCliente', auth()->user()->id)->get();
+        $pdf = \PDF::loadView('pedido.pdfhistorial', compact('pedidos'));
+        return $pdf->download('historial.pdf');
     }
 
     //generar pdf

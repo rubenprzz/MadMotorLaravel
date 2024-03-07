@@ -4,16 +4,6 @@
 @section('title', 'Vehiculos')
 @section('content')
     <section class="bg-gray-900 font text-white">
-        @if($errors->any())
-            <div class="alert alert-danger">
-                <h6>No se pudo añadir el producto</h6>
-                <ul>
-                    @foreach($errors->all() as $error)
-                        <li>{{$error}}</li>
-                    @endforeach
-                </ul>
-            </div>
-        @endif
         <div class="container rounded-4 pt-5 shadow-lg bg-gray-700 ">
             <div class="pt-20">
                 <h1 class="text-3xl  font-bold text-center underline decoration-sky-500">
@@ -142,7 +132,7 @@
                                             Descendente
                                         </option>
                                         <option
-                                            value="precioAcs" {{ request('orden') == 'precioAcs' ? 'selected' : '' }}>
+                                            value="precioAsc" {{ request('orden') == 'precioAcs' ? 'selected' : '' }}>
                                             Precio
                                             Ascendente
                                         </option>
@@ -154,23 +144,23 @@
                         <div class="flex flex-col gap-4">
                             @if(count($vehiculos) > 0)
                                 @foreach ($vehiculos as $vehiculo)
-                                    <div class="card shadow p-4">
+                                    <div class="card shadow rounded-lg p-4">
                                         <div class="row align-items-center">
-                                            <aside class="col-md-3">
+                                            <aside class="col-md-4">
                                                 <a href="#">
                                                     @if ($vehiculo->imagen != Vehiculo::$IMAGEN_DEFAULT)
                                                         <img src="{{ asset('storage/'.$vehiculo->imagen) }}"
-                                                             class="img-sm border"
+                                                             class="h-auto rounded-lg shadow-none transition-shadow duration-300 ease-in-out hover:shadow-lg hover:shadow-black/30"
                                                              alt="coche">
                                                     @else
-                                                        <img src="{{ $vehiculo->imagen }}" class="img-sm border"
+                                                        <img src="{{ $vehiculo->imagen }}" class="h-auto rounded-lg shadow-none transition-shadow duration-300 ease-in-out hover:shadow-lg hover:shadow-black/30"
                                                              alt="coche">
                                                     @endif
                                                 </a>
                                             </aside>
                                             <div class="col-md-5">
-                                                <div class="bg-white p-4 rounded-md shadow-sm">
-                                                    <a href="#" class="h3 title text-2xl font-bold text-gray-900">
+                                                <div class="bg-white p-4 rounded-md shadow-lg">
+                                                    <a href="#" class="h3 title text-2xl relative inline cursor-pointer text-xl font-medium before:bg-violet-600  before:absolute before:-bottom-1 before:block before:h-[2px] before:w-full before:origin-bottom-right before:scale-x-0 before:transition before:duration-300 before:ease-in-out hover:before:origin-bottom-left hover:before:scale-x-100">
                                                         {{$vehiculo->marca}} {{$vehiculo->modelo}}
                                                     </a>
 
@@ -199,8 +189,7 @@
                                             <div class="col-12 col-md-3">
                                                 <div
                                                     class=" items-center justify-between py-8 px-8 bg-gray-100 rounded-xl shadow-xl">
-                                                    <span
-                                                        class="text-3xl font-bold text-red-500">{{$vehiculo->precio}}€</span>
+                                                    <span class="text-2xl font-bold text-red-500">{{number_format($vehiculo->precio, 2, ',', '.')}}€</span>
 
                                                     @if ($vehiculo->cantidad > 0)
                                                         <span class="text-green-500 text-sm m-2"> Disponible</span>
@@ -214,13 +203,9 @@
                                                         Detalles
                                                     </a>
                                                     @if($vehiculo->cantidad > 0)
-                                                        <a href="{{ route('carrito.add', ['id' => $vehiculo->id, 'type' => 'vehiculo']) }}"                                                           class=" btn btn-primary text-sm">
+                                                        <a href="{{ route('carrito.add', ['id' => $vehiculo->id, 'type' => 'vehiculo']) }}" class=" btn btn-primary text-sm">
                                                             Añadir al carrito
-                                                            <svg class=" w-8 h-8 fill-current"
-                                                                 viewbox="0 0 24 24">
-                                                                <path
-                                                                    d="M17,18C15.89,18 15,18.89 15,20A2,2 0 0,0 17,22A2,2 0 0,0 19,20C19,18.89 18.1,18 17,18M1,2V4H3L6.6,11.59L5.24,14.04C5.09,14.32 5,14.65 5,15A2,2 0 0,0 7,17H19V15H7.42A0.25,0.25 0 0,1 7.17,14.75C7.17,14.7 7.18,14.66 7.2,14.63L8.1,13H15.55C16.3,13 16.96,12.58 17.3,11.97L20.88,5.5C20.95,5.34 21,5.17 21,5A1,1 0 0,0 20,4H5.21L4.27,2M7,18C5.89,18 5,18.89 5,20A2,2 0 0,0 7,22A2,2 0 0,0 9,20C9,18.89 8.1,18 7,18Z"/>
-                                                            </svg>
+
                                                         </a>
                                                     @else
                                                         <a href="#"
