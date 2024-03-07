@@ -65,7 +65,12 @@ class PedidoController extends Controller
 
     public function confirmacion($id)
     {
+        if (!uuid_is_valid($id)) {
+            return redirect()->route('vehiculos.hero');
+        }
+
         $pedido = Pedido::find($id);
+        $this->authorize('view', $pedido);
         return view('pedido.confirmacion')->with('pedido', $pedido);
     }
 
