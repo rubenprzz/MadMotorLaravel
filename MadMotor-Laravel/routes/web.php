@@ -61,6 +61,7 @@ Route::group(['prefix' => 'perfil'], function () {
 });
 
 
+
 Route::group(['prefix' => 'personal'], function () {
     Route::get('/create', [PersonalController::class, 'create'])->name('personal.create')->middleware('auth', 'admin');
     Route::post('/store', [PersonalController::class, 'store'])->name('personal.store')->middleware('auth', 'admin');
@@ -70,4 +71,13 @@ Route::group(['prefix' => 'personal'], function () {
     Route::put('/{id}/update', [PersonalController::class, 'update'])->name('personal.update')->middleware('auth', 'admin');
     Route::delete('/{id}/delete', [PersonalController::class, 'destroy'])->name('personal.destroy')->middleware('auth', 'admin');
 });
+
+
+
+//Vistas para panel de administrador de clientes
+Route::get('/panel/piezas', [PiezaController::class, 'indexAdmin'])->name('piezas.adminIndex');
+Route::get('/panel/piezas/{id}', [PiezaController::class, 'adminShow'])->name('piezas.adminShow');
+Route::get('/clientes', [ClientesController::class, 'index'])->name('cliente.index');
+Route::get('/clientes/{id}', [ClientesController::class, 'adminShow'])->name('cliente.show');
+Route::get('/clientes/{id}/edit', [ClientesController::class, 'adminEdit'])->name('cliente.adminEdit');
 

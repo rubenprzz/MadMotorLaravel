@@ -44,7 +44,9 @@
                 </li>
                 @if(Auth::user()->role === 'admin')
                     <li class=" transition-colors duration-500 text-current font-medium inline-block px-2 py-2"><a
-                            href="{{route('panel')}} ">Panel de Administrador</a>
+
+                            href="{{ route('panel') }}">Panel de Administrador</a>
+
                     </li>
                 @endif
                 <li class=" transition-colors duration-500 text-current font-medium inline-block px-2 py-2"><a

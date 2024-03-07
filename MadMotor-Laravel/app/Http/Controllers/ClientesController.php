@@ -16,7 +16,7 @@ class ClientesController extends Controller
         try {
             $clientes = Clientes::search($request->search)->orderBy('id', 'asc')->paginate(10);
             Log::info('Se han obtenido los clientes correctamente');
-            return view('cliente.index')->with('clientes', $clientes);
+            return view('admin.cliente.index')->with('clientes', $clientes);
         } catch (\Exception $e) {
             Log::error('Error al obtener los clientes: ' . $e->getMessage());
             return redirect()->back();
@@ -131,6 +131,36 @@ class ClientesController extends Controller
             return redirect()->route('/');
         } catch (\Exception $e) {
             Log::error('Error al eliminar el cliente: ' . $e->getMessage());
+            return redirect()->back();
+        }
+    }
+    public function adminShow($id)
+    {
+        try {
+                $cliente = Clientes::find($id);
+                if ($cliente == null) {
+                    Log::error('No se ha encontrado el cliente con el id: ' . $id);
+                    return redirect()->back();
+                }
+                Log::info('Se ha obtenido el cliente correctamente');
+                return view('admin.cliente.adminshow')->with('cliente', $cliente);
+            } catch (\Exception $e) {
+                Log::error('Error al obtener el cliente: ' . $e->getMessage());
+                return redirect()->back();
+            }
+    }
+    public function adminEdit($id)
+    {
+        try {
+                $cliente = Clientes::find($id);
+                if ($cliente == null) {
+                    Log::error('No se ha encontrado el cliente con el id: ' . $id);
+                    return redirect()->back();
+                }
+                Log::info('Se ha obtenido el cliente para actualizar correctamente');
+                return view('cliente.edit')->with('cliente', $cliente);
+        } catch (\Exception $e) {
+            Log::error('Error al obtener el cliente para actualizar : ' . $e->getMessage());
             return redirect()->back();
         }
     }

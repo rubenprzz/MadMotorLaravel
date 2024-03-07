@@ -18,7 +18,7 @@
             <div class="group relative h-[17.5rem] transform overflow-hidden rounded-4xl">
                 <div class="absolute bottom-6 left-0 right-4 top-0 rounded-4xl border transition duration-300 group-hover:scale-95 xl:right-6 border-indigo-300"></div>
                 <div class="absolute inset-0 bg-indigo-50" style="clip-path:url(#:R1bqnla:-1)">
-                   <a href="#">
+                   <a href="{{ route('piezas.adminIndex') }}">
                     <img alt="" fetchPriority="high" width="1120" height="560" decoding="async" class="absolute inset-0 h-full w-full object-cover transition duration-300 group-hover:scale-110" style="color:transparent" sizes="(min-width: 1280px) 17.5rem, (min-width: 1024px) 25vw, (min-width: 768px) 33vw, (min-width: 640px) 50vw, 100vw" src="https://th.bing.com/th/id/OIP.KfJHc987dlOGUVkAhwwcGAHaE8?rs=1&pid=ImgDetMain&amp;w=3840&amp;q=75"/>
                    </a>
                 </div>
@@ -42,7 +42,7 @@
             <div class="group relative h-[17.5rem] transform overflow-hidden rounded-4xl">
                 <div class="absolute bottom-6 left-0 right-4 top-0 rounded-4xl border transition duration-300 group-hover:scale-95 xl:right-6 border-blue-300"></div>
                 <div class="absolute inset-0 bg-indigo-50" style="clip-path:url(#:R1bqnla:-0)">
-                   <a href="#">
+                   <a href="{{ route('personal.search') }}">
                     <img alt="" fetchPriority="high" width="1120" height="560" decoding="async" class="absolute inset-0 h-full w-full object-cover transition duration-300 group-hover:scale-110" style="color:transparent" sizes="(min-width: 1280px) 17.5rem, (min-width: 1024px) 25vw, (min-width: 768px) 33vw, (min-width: 640px) 50vw, 100vw" src="https://static.vecteezy.com/system/resources/previews/014/307/479/non_2x/call-center-personal-assistant-icon-cartoon-style-vector.jpg?w=3840&q=75"/>
                    </a>
                 </div>
@@ -54,7 +54,7 @@
             <div class="group relative h-[17.5rem] transform overflow-hidden rounded-4xl">
                 <div class="absolute bottom-6 left-0 right-4 top-0 rounded-4xl border transition duration-300 group-hover:scale-95 xl:right-6 border-indigo-300"></div>
                 <div class="absolute inset-0 bg-indigo-50" style="clip-path:url(#:R1bqnla:-1)">
-                    <a href="#">
+                    <a href="{{ route('cliente.index') }}">
                     <img alt="" fetchPriority="high" width="1120" height="560" decoding="async" class="absolute inset-0 h-full w-full object-cover transition duration-300 group-hover:scale-110" style="color:transparent" sizes="(min-width: 1280px) 17.5rem, (min-width: 1024px) 25vw, (min-width: 768px) 33vw, (min-width: 640px) 50vw, 100vw" src="https://cdn.pixabay.com/photo/2016/03/31/20/37/client-1295901_1280.png?w=3840q=75"/>
                     </a>
                 </div>

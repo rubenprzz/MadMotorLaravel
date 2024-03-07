@@ -155,5 +155,19 @@ class PiezaController extends Controller
             'imagen.required' => 'La imagen es obligatoria.',
         ];
     }
+    public function indexAdmin( Request $request )
+    {
+        $piezas = Pieza::search($request->search)->orderBy('id', 'asc')->paginate(3);
+        return view('admin.piezas.index')->with('piezas', $piezas);
+    }
+    public function adminShow($id)
+    {
+        $pieza = Pieza::find($id);
+        if ($pieza) {
+            return view('admin.piezas.show')->with('pieza', $pieza);
+        } else {
+            return redirect()->route('piezas.adminIndex');
+        }
+    }
 }
 
