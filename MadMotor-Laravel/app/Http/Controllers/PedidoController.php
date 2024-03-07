@@ -14,6 +14,17 @@ class PedidoController extends Controller
 {
     public function checkout(Request $request)
     {
+        //Reglas de validación
+        $rules = [
+            'datosTarjeta' => 'required|string',
+            'direccion' => 'required|string',
+        ];
+        $messages = [
+            'required' => 'El campo :attribute es obligatorio.',
+            'string' => 'El campo :attribute debe ser un texto.',
+        ];
+        $this->validate($request, $rules, $messages);
+
         // Obtener el carrito de la sesión
         $cart = session()->get('cart');
 
