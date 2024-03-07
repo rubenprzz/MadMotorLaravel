@@ -100,7 +100,7 @@ class Vehiculo extends Model
         return $query->where('isDeleted', false);
     }
 
-    public function scopeOrderByPrecioAcs($query)
+    public function scopeOrderByPrecioAsc($query)
     {
         return $query->orderBy('precio', 'asc');
     }

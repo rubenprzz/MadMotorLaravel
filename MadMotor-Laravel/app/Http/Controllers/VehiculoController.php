@@ -76,7 +76,6 @@ class VehiculoController extends Controller
         }
         //isDeleted and paginate 10
         $query->isDeleted();
-        $query->paginate(10);
         //links paginate
         $vehiculos = $query->paginate(10)->appends($request->all());
 
