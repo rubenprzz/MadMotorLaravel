@@ -17,7 +17,7 @@ return new class extends Migration
             $table->foreign('idCliente')->references('id')->on('clientes');
             $table->string('datosTarjeta', 100);
             $table->string('direccion', 100);
-            $table->decimal('total', 8, 2);
+            $table->decimal('total',10,2);
             $table->string('estado', 20);
             $table->boolean('isDeleted')->default(false);
             $table->timestamps();

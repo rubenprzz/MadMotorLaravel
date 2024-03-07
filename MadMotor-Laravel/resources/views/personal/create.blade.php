@@ -10,7 +10,7 @@
         <section>
             <div class="container">
                 <div class="section-title">
-                    <h2>Editar Personal</h2>
+                    <h2>Crear Personal</h2>
                 </div>
 
             @if ($errors->any())
