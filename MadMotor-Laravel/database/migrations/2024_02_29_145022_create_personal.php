@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('fecha_nacimiento');
             $table->string('dni')->unique();
             $table->string('direccion');
-            $table->integer('telefono');
+            $table->string('telefono');
             $table->decimal('sueldo');
             $table->string('iban');
             $table->string('email')->unique();
