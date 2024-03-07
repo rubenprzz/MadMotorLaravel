@@ -84,6 +84,15 @@ class VehiculoController extends Controller
         return view('vehiculos.index')->with('vehiculos', $vehiculos);
     }
 
+    public function show($id)
+    {
+        if (!is_numeric($id)) {
+            return redirect()->route('vehiculos.index');
+        }
+        $vehiculo = Vehiculo::find($id);
+        return view('vehiculos.show')->with('vehiculo', $vehiculo);
+    }
+
     function create()
     {
         $categorias = Categoria::all();

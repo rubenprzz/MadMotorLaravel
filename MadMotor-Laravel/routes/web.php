@@ -88,12 +88,11 @@ Route::get('/clientes/{id}/edit', [ClientesController::class, 'adminEdit'])->nam
 
 
 Route::group(['prefix' => 'categorias'], function () {
-    Route::get('/', [CategoriaController::class, 'index'])->name('categorias.index');
-    Route::get('/create', [CategoriaController::class, 'create'])->name('categorias.create');
-    Route::post('/', [CategoriaController::class, 'store'])->name('categorias.store');
-    Route::get('/{id}', [CategoriaController::class, 'show'])->name('categorias.show');
-    Route::get('/{id}/edit', [CategoriaController::class, 'edit'])->name('categorias.edit');
-    Route::put('/{id}/update', [CategoriaController::class, 'update'])->name('categorias.update');
-    Route::delete('/{id}', [CategoriaController::class, 'destroy'])->name('categorias.destroy');
-
+    Route::get('/', [CategoriaController::class, 'index'])->name('categorias.index')->middleware('auth', 'admin');
+    Route::get('/create', [CategoriaController::class, 'create'])->name('categorias.create')->middleware('auth', 'admin');
+    Route::post('/', [CategoriaController::class, 'store'])->name('categorias.store')->middleware('auth', 'admin');
+    Route::get('/{id}', [CategoriaController::class, 'show'])->name('categorias.show')->middleware('auth', 'admin');
+    Route::get('/{id}/edit', [CategoriaController::class, 'edit'])->name('categorias.edit')->middleware('auth', 'admin');
+    Route::put('/{id}/update', [CategoriaController::class, 'update'])->name('categorias.update')->middleware('auth', 'admin');
+    Route::delete('/{id}', [CategoriaController::class, 'destroy'])->name('categorias.destroy')->middleware('auth', 'admin');
 });
