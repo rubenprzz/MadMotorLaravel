@@ -6,6 +6,7 @@ use App\Models\Categoria;
 use App\Models\Pieza;
 use App\Models\Vehiculo;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class VehiculoController extends Controller
 {
@@ -220,6 +221,23 @@ class VehiculoController extends Controller
 
     }
 
+    public function destroy($id)
+    {
+        if (!is_numeric($id)) {
+            return redirect()->route('vehiculos.index');
+        }
+        $vehiculo = Vehiculo::find($id);
+        try {
+            if ($vehiculo->imagen != Vehiculo::$IMAGEN_DEFAULT && Storage::exists($vehiculo->imagen)) {
+                Storage::delete($vehiculo->imagen);
+            }
+            $vehiculo->isDeleted = true;
+            $vehiculo->save();
+            return redirect()->route('vehiculos.adminIndex')->with('success', 'Vehículo eliminado correctamente.');
+        } catch (\Exception $e) {
+            return redirect()->route('vehiculos.adminIndex')->with('error', 'Error al eliminar el vehículo.');
+        }
+    }
 
 
 }

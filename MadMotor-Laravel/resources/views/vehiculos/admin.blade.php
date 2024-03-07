@@ -6,6 +6,21 @@
     <section class="bg-gray-900 font text-white">
         <div class="container rounded-4 pt-5 mt-3 shadow-lg bg-gray-700 ">
             <h1 class="text-3xl text-center font-bold mt-5">Listado de Vehículos</h1>
+            @if ($errors->any())
+                <div class="bg-red-500 text-white p-4 rounded-lg mb-6">
+                    <h2 class="text-2xl">Errores</h2>
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                            <li class="text-red-200">{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
+            @if (session('success'))
+                <div class="bg-green-500 text-white p-4 rounded-lg mb-6">
+                    {{ session('success') }}
+                </div>
+            @endif
             <form action="{{ route('vehiculos.adminIndex') }}" method="GET" class="mb-6">
                 <div class="flex items-center">
                     <input type="text" name="marca" placeholder="Buscar por marca"
@@ -43,16 +58,38 @@
                                 <a href="{{ route('vehiculos.show', $vehiculo->id) }}"
                                    class="bg-green-500 hover:bg-green-600 text-white px-3 py-1 rounded-lg mr-2">Ver
                                     detalles</a>
-                                <form action="{{ route('vehiculos.destroy', $vehiculo->id) }}" method="POST"
-                                      class="inline-block">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit"
-                                            class="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded-lg">Borrar
-                                    </button>
-                                </form>
+                                   <a class="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded-lg" data-bs-toggle="modal" data-bs-target="#deleteModal"
+                                            data-id="{{ $vehiculo->id }}">Eliminar Vehiculo </a>
+
+
                             </td>
                         </tr>
+                        <div class="modal fade text-dark" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel"
+                             aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="deleteModalLabel">Eliminar Vehiculo</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                aria-label="Close">
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        ¿Estás seguro de que quieres eliminar este Vehiculo?
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn text-white bg-gray-800" data-bs-dismiss="modal">Cancelar
+                                        </button>
+                                        <form action="{{ route('vehiculos.destroy', $vehiculo->id )  }}" id="deleteForm"
+                                              method="POST">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="btn  text-white bg-red-800">Eliminar</button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     @endforeach
                     </tbody>
                 </table>
@@ -60,4 +97,14 @@
             </div>
         </div>
     </section>
+    <script>
+        $(document).ready(function () {
+            $('.btn-danger').on('click', function (e) {
+                e.preventDefault();
+                var id = $(this).data('id');
+                $('#deleteForm').attr('action', '/vehiculos/admin/' + id + '/delete/vehiculo');
+                $('#deleteModal').modal('show');
+            });
+        });
+    </script>
 @endsection
