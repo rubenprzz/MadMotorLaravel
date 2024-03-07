@@ -99,6 +99,9 @@ class CarritoController extends Controller
     public function checkout()
     {
         $cart = session()->get('cart');
+        if (!$cart) {
+            return redirect()->route('carrito.index');
+        }
 
         // Verificar la cantidad de cada artículo en la base de datos
         foreach ($cart as $item) {
