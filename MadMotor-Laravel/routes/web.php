@@ -16,6 +16,11 @@ Route::get('/', 'App\Http\Controllers\VehiculoController@hero')->name('vehiculos
 
 Route::group(['prefix' => 'vehiculos'], function () {
     Route::get('/', [VehiculoController::class, 'index'])->name('vehiculos.index');
+    Route::get('/{id}', [VehiculoController::class, 'show'])->name('vehiculos.show');
+    Route::get('/admin/create/vehiculo', [VehiculoController::class, 'create'])->name('vehiculos.create')->middleware('auth', 'admin');
+    Route::post('/admin/store/vehiculo', [VehiculoController::class, 'store'])->name('vehiculos.store')->middleware('auth', 'admin');
+    Route::get('/admin/{id}/edit/vehiculo', [VehiculoController::class, 'edit'])->name('vehiculos.edit')->middleware('auth', 'admin');
+    Route::put('/admin/{id}/update/vehiculo', [VehiculoController::class, 'update'])->name('vehiculos.update')->middleware('auth', 'admin');
 });
 
 Route::group(['prefix' => 'carrito'], function () {
