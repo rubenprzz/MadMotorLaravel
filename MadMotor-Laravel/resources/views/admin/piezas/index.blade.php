@@ -48,7 +48,7 @@
                     </div>
                 @endforeach
             </div>
-            (( $piezas->links() ))
+            {{ $piezas->links() }}
         </div>
     </section>
 

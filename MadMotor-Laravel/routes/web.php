@@ -50,8 +50,6 @@ Route::get('/admin/panel', function () {
 
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-
 Route::group(['prefix' => 'perfil'], function () {
     Route::get('/{id}', [ClientesController::class, 'show'])->name('cliente.perfil')->middleware('auth');
     Route::get('/{id}/edit', [ClientesController::class, 'edit'])->name('cliente.edit')->middleware('auth');
@@ -59,7 +57,6 @@ Route::group(['prefix' => 'perfil'], function () {
     Route::get('/{id}/soft', [ClientesController::class, 'removeSoft'])->name('cliente.removeSoft')->middleware('auth');
 
 });
-
 
 
 Route::group(['prefix' => 'personal'], function () {
