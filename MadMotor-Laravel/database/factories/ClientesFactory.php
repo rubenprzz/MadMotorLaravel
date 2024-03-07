@@ -24,7 +24,7 @@ class ClientesFactory extends Factory
             'nombre' => fake()->name(),
             'email' => fake()->unique()->safeEmail(),
             'password' => static::$password ??= Hash::make('password'),
-            'role' => 'user',
+            'role' => 'cliente',
             'apellido' => fake()->lastName(),
             'imagen' => 'https://static.vecteezy.com/system/resources/previews/000/439/863/original/vector-users-icon.jpg',
             'dni' => fake()->unique()->name(),
