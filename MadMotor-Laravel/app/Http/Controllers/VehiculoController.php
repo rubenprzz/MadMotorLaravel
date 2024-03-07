@@ -211,6 +211,15 @@ class VehiculoController extends Controller
         return redirect()->route('vehiculos.index');
     }
 
+    public function adminPanelVehiculos(Request $request)
+    {
+
+        $vehiculos = Vehiculo::marca(request('marca'))->paginate(10);
+
+        return view('vehiculos.admin')->with('vehiculos', $vehiculos);
+
+    }
+
 
 
 }

@@ -21,6 +21,8 @@ Route::group(['prefix' => 'vehiculos'], function () {
     Route::post('/admin/store/vehiculo', [VehiculoController::class, 'store'])->name('vehiculos.store')->middleware('auth', 'admin');
     Route::get('/admin/{id}/edit/vehiculo', [VehiculoController::class, 'edit'])->name('vehiculos.edit')->middleware('auth', 'admin');
     Route::put('/admin/{id}/update/vehiculo', [VehiculoController::class, 'update'])->name('vehiculos.update')->middleware('auth', 'admin');
+    Route::get('/admin/panel/vehiculos', [VehiculoController::class, 'adminPanelVehiculos'])->name('vehiculos.adminIndex')->middleware('auth', 'admin');
+    Route::delete('/admin/{id}/delete/vehiculo', [VehiculoController::class, 'destroy'])->name('vehiculos.destroy')->middleware('auth', 'admin');
 });
 
 Route::group(['prefix' => 'carrito'], function () {
