@@ -34,7 +34,7 @@
                     </div>
                 </div>
                 <div class="flex justify-center py-4 bg-gray-100">
-                    <a href="{{ route('pedido.historial' }}"
+                    <a href="{{ route('pedido.historial') }}"
                        class="bg-green-500 hover:bg-green-600 text-white font-semibold px-6 py-2 rounded-lg mr-2">Historial
                         de Pedidos</a>
                     <a href="{{ route('cliente.edit', $cliente->id) }}"

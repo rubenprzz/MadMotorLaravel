@@ -47,7 +47,7 @@ Route::group(['prefix' => 'piezas'], function () {
 
 Route::get('/admin/panel', function () {
     return view('admin.panel');
-})->name('panel');
+})->name('panel')->middleware('auth', 'admin');
 
 Auth::routes();
 
