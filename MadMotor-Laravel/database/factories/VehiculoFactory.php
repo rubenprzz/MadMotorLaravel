@@ -17,14 +17,13 @@ class VehiculoFactory extends Factory
     public function definition(): array
     {
         return [
-            'marca' => $this->faker->word,
-            'modelo' => $this->faker->word,
-            'year' => $this->faker->year,
-            'km' => $this->faker->randomNumber(5),
-            'precio' => $this->faker->randomFloat(2, 1000, 100000),
-            'cantidad' => $this->faker->randomNumber(2),
-            'imagen' => $this->faker->imageUrl(),
-            'categoria_id' => 1,
+            'marca' => fake()->word(),
+            'modelo' => fake()->word(),
+            'year' => fake()->year(),
+            'km' => fake()->randomNumber(5),
+            'precio' => fake()->randomFloat(2, 0, 100000),
+            'cantidad' => fake()->numberBetween(0, 100),
+            'categoria_id' => fake()->numberBetween(1, 10),
             'isDeleted' => false,
         ];
     }

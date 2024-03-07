@@ -18,8 +18,11 @@ class PiezaControllerTest extends TestCase
         $this->artisan('db:seed');
     }
 
-    public function testStore()
-    {
+    public function testStoreAuthorizedWithErrors()
+    {   $user = Clientes::factory()->create([
+        'role' => 'admin',
+    ]);
+        $this->actingAs($user);
         $piezas = Pieza::factory()->count(5)->make();
         $response = $this->post(route('piezas.store'), $piezas->toArray());
         $response->assertStatus(302);
@@ -46,6 +49,18 @@ class PiezaControllerTest extends TestCase
             'imagen',
         ]);
     }
+    public function testStoreUnauthorized()
+    {
+        $user = Clientes::factory()->create([
+            'role' => 'cliente',
+        ]);
+        $this->actingAs($user);
+        $piezas = Pieza::factory()->count(5)->make();
+        $response = $this->post(route('piezas.store'), $piezas->toArray());
+        $response->assertStatus(302);
+        $response->assertRedirect('http://localhost/home');
+    }
+
 
 
 
@@ -53,6 +68,10 @@ class PiezaControllerTest extends TestCase
 
     public function testUpdateSuccess()
     {
+        $user = Clientes::factory()->create([
+            'role' => 'admin',
+        ]);
+        $this->actingAs($user);
         $pieza = Pieza::factory()->create();
         $data = [
             'nombre' => 'Pieza actualizada',
@@ -61,6 +80,7 @@ class PiezaControllerTest extends TestCase
             'cantidad' => 2,
             'categoria_id' => '1',
         ];
+
 
         $response = $this->put('/piezas/' . $pieza->id, $data);
 
@@ -71,9 +91,41 @@ class PiezaControllerTest extends TestCase
         $this->assertEquals(2, $pieza->cantidad, 'The quantity should be updated');
         $this->assertEquals('1', $pieza->categoria_id, 'The category should be updated');
     }
+    public function testUpdateUnauthorized()
+    {
+        $user = Clientes::factory()->create([
+            'role' => 'cliente',
+        ]);
+        $this->actingAs($user);
+        $pieza = Pieza::factory()->create();
+        $data = [
+            'nombre' => 'Pieza actualizada',
+            'descripcion' => 'Descripción de la pieza actualizada',
+            'precio' => 20.0,
+            'cantidad' => 2,
+            'categoria_id' => 1,
+        ];
+        self::assertNotEquals('Pieza actualizada', $pieza->nombre);
+        self::assertNotEquals('Descripción de la pieza actualizada', $pieza->descripcion);
+        self::assertNotEquals(20.0, $pieza->precio);
+        self::assertNotEquals(2, $pieza->cantidad);
+
+
+
+
+
+
+
+
+
+    }
 
     public function testUpdateValidation()
     {
+        $user = Clientes::factory()->create([
+            'role' => 'admin',
+        ]);
+        $this->actingAs($user);
         $pieza = Pieza::factory()->create();
         $data = [
             'nombre' => '',
@@ -94,12 +146,26 @@ class PiezaControllerTest extends TestCase
 
 
 
-    public function testCreate()
+    public function testCreateSucess()
     {
+        $user = Clientes::factory()->create([
+            'role' => 'admin',
+        ]);
+        $this->actingAs($user);
         $response = $this->get('/piezas/create');
         $response->assertViewIs('piezas.create');
 
         $response = $this->get('/piezas/create');
+    }
+    public function testCreateUnauthorized()
+    {
+        $user = Clientes::factory()->create([
+            'role' => 'cliente',
+        ]);
+        $this->actingAs($user);
+        $response = $this->get('/piezas/create');
+        $response->assertStatus(302);
+        $response->assertRedirect('http://localhost/home');
     }
 
 
@@ -131,8 +197,12 @@ class PiezaControllerTest extends TestCase
         $this->assertEquals(8, $piezas->count());
     }
 
-    public function testEdit()
+    public function testEditSucess()
     {
+        $user = Clientes::factory()->create([
+            'role' => 'admin',
+        ]);
+        $this->actingAs($user);
         $pieza = Pieza::factory()->create();
         $response = $this->get('/piezas/' . $pieza->id . '/edit');
         $response->assertViewIs('piezas.edit');
@@ -143,6 +213,44 @@ class PiezaControllerTest extends TestCase
         $response->assertSee($pieza->descripcion);
         $response->assertSee($pieza->precio);
         $response->assertSee($pieza->cantidad);
+
+    }
+    public function testEditUnauthorized()
+    {
+        $user = Clientes::factory()->create([
+            'role' => 'cliente',
+        ]);
+        $this->actingAs($user);
+        $pieza = Pieza::factory()->create();
+        $response = $this->get('/piezas/' . $pieza->id . '/edit');
+        $response->assertStatus(302);
+        $response->assertRedirect('http://localhost/home');
+
+    }
+    public function testDestroyWithoutAuth()
+    {
+        $user = Clientes::factory()->create([
+            'role' => 'cliente',
+        ]);
+        $this->actingAs($user);
+        $pieza = Pieza::factory()->create();
+        $response = $this->delete('/piezas/' . $pieza->id);
+        $response->assertStatus(302);
+        $response->assertRedirect('http://localhost/home');
+
+    }
+    public function testDestroyWithAuth()
+    {
+        $user = Clientes::factory()->create([
+            'role' => 'admin',
+        ]);
+        $this->actingAs($user);
+        $pieza = Pieza::factory()->create();
+        $response = $this->delete('/piezas/' . $pieza->id);
+        $response->assertStatus(302);
+        $response->assertRedirect('http://localhost/piezas');
+        $pieza = Pieza::find($pieza->id);
+        $this->assertNull($pieza);
 
     }
 
