@@ -67,7 +67,7 @@
                                             @endauth
                                         </div>
                                     </div>
-                                    <div class="text-xl text-white font-semibold mt-1">{{$pieza->precio}}</div>
+                                    <div class="text-xl text-white font-semibold mt-1">{{$pieza->precio}}€</div>
                                     <div
                                         class="text-xl text-white font-semibold mt-1">{{$pieza->categoria->nombre}}</div>
 
