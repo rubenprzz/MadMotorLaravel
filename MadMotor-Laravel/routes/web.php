@@ -74,8 +74,7 @@ Route::group(['prefix' => 'perfil'], function () {
         Route::get('/', [PersonalController::class, 'index'])->name('personal.search');
         Route::get('/{id}/edit', [PersonalController::class, 'edit'])->name('personal.edit');
         Route::put('/{id}/update', [PersonalController::class, 'update'])->name('personal.update');
-
-
+        Route::delete('/{id}/delete', [PersonalController::class, 'destroy'])->name('personal.destroy');
     });
 
 Route::get('/panel', function () {

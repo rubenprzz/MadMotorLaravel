@@ -55,9 +55,10 @@
                     <option value="Personal">Personal</option>
                 </select>
             </div>
-
-            <button class="btn btn-primary" type="submit">Actualizar</button>
-            <a class="btn btn-secondary mx-2" href="{{ route('personal.search') }}">Volver</a>
+            <div class="botones mt-3">
+                <button class="btn btn-primary" type="submit">Actualizar</button>
+                <a class="btn btn-secondary mx-2" href="{{ route('personal.search') }}">Volver</a>
+            </div>
         </form>
     </div>
         </section>
