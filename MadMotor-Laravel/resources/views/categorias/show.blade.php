@@ -3,7 +3,7 @@
 @section('title', 'Detalles Categoría')
 @section('content')
     <section class="bg-gray-900 font text-white">
-        <div class="container rounded-4 pt-5 shadow-lg bg-gray-700 ">
+        <div class="container rounded-4 pt-5 shadow-lg bg-gray-700 h-screen">
             <div class="container mx-auto pt-20 mt-5">
                 <h1 class="text-3xl font-bold mb-3">Detalles</h1>
                 <div class="card text-black">
