@@ -88,6 +88,10 @@ class PedidoController extends Controller
 
     //generar pdf
     public function download($id){
+        //comprobacion del id si es un uuid
+        if (!uuid_is_valid($id)) {
+            return redirect()->route('vehiculos.hero');
+        }
         $pdf = App::make('dompdf.wrapper');
 
         $data =[

@@ -19,29 +19,28 @@ Route::group(['prefix' => 'vehiculos'], function () {
 });
 
 Route::group(['prefix' => 'carrito'], function () {
-    Route::get('/index', [CarritoController::class, 'index'])->name('carrito.index');
-    Route::get('/carrito/add/{id}/{type}', [CarritoController::class, 'addToCart'])->name('carrito.add');
-    Route::get('/carrito/delete/{id}/{type}', [CarritoController::class, 'removeFromCart'])->name('carrito.delete');
-    Route::get('/carrito/checkout', [CarritoController::class, 'checkout'])->name('carrito.checkout');
+    Route::get('/index', [CarritoController::class, 'index'])->name('carrito.index')->middleware('auth');
+    Route::get('/carrito/add/{id}/{type}', [CarritoController::class, 'addToCart'])->name('carrito.add')->middleware('auth');
+    Route::get('/carrito/delete/{id}/{type}', [CarritoController::class, 'removeFromCart'])->name('carrito.delete')->middleware('auth');
+    Route::get('/carrito/checkout', [CarritoController::class, 'checkout'])->name('carrito.checkout')->middleware('auth');
 });
 Route::group(['prefix' => 'pedido'], function () {
-    Route::post('/checkout', [PedidoController::class, 'checkout'])->name('pedido.checkout');
-    Route::get('/confirmado/{id}', [PedidoController::class, 'confirmacion'])->name('pedido.confirmacion');
-    Route::get('/historial', [PedidoController::class, 'historial'])->name('pedido.historial');
-    Route::get('/historial/{id}', [PedidoController::class, 'show'])->name('pedido.show');
-    Route::get('/download/pedido/{id}', [PedidoController::class, 'download'])->name('pedido.download');
-    Route::get('/download/historial/', [PedidoController::class, 'downloadHistorial'])->name('pedido.historial.download');
+    Route::post('/checkout', [PedidoController::class, 'checkout'])->name('pedido.checkout')->middleware('auth');
+    Route::get('/confirmado/{id}', [PedidoController::class, 'confirmacion'])->name('pedido.confirmacion')->middleware('auth');
+    Route::get('/historial', [PedidoController::class, 'historial'])->name('pedido.historial')->middleware('auth');
+    Route::get('/download/pedido/{id}', [PedidoController::class, 'download'])->name('pedido.download')->middleware('auth');
+    Route::get('/download/historial/', [PedidoController::class, 'downloadHistorial'])->name('pedido.historial.download')->middleware('auth');
 
 });
 Route::group(['prefix' => 'piezas'], function () {
     Route::get('/', [PiezaController::class, 'index'])->name('piezas.index');
-    Route::post('/create', [PiezaController::class, 'create'])->name('piezas.create');
-    Route::get('/create', [PiezaController::class, 'store'])->name('piezas.store');
-    Route::put('/{id}', [PiezaController::class, 'update'])->name('piezas.update');
-    Route::delete('/{id}', [PiezaController::class, 'destroy'])->name('piezas.destroy');
+    Route::post('/create', [PiezaController::class, 'create'])->name('piezas.create')->middleware('auth', 'admin');
+    Route::get('/create', [PiezaController::class, 'store'])->name('piezas.store')->middleware('auth', 'admin');
+    Route::put('/{id}', [PiezaController::class, 'update'])->name('piezas.update')->middleware('auth', 'admin');
+    Route::delete('/{id}', [PiezaController::class, 'destroy'])->name('piezas.destroy')->middleware('auth', 'admin');
     Route::get('/{id}', [PiezaController::class, 'show'])->name('piezas.show');
-    Route::get('/{id}/edit', [PiezaController::class, 'edit'])->name('piezas.edit');
-    Route::put('/{id}/edit', [PiezaController::class, 'update'])->name('piezas.update');
+    Route::get('/{id}/edit', [PiezaController::class, 'edit'])->name('piezas.edit')->middleware('auth', 'admin');
+    Route::put('/{id}/edit', [PiezaController::class, 'update'])->name('piezas.update')->middleware('auth', 'admin');
 
 });
 
@@ -61,33 +60,20 @@ Route::group(['prefix' => 'perfil'], function () {
 
 });
 
-Route::prefix('personal')->name('personal.')->group(function () {
-
-    Route::middleware(['guest:personal'])->group(function () {
-        Route::view('/login', 'personal.login')->name('login');
-        Route::post('/check', [PersonalAuthController::class, 'check'])->name('check');
-    });
-
-    Route::middleware(['auth:personal'])->group(function () {
-        Route::view('/home', 'personal.home')->name('home');
-        Route::post('/logout', [PersonalAuthController::class, 'logout'])->name('logout');
-    });});
 
 
-    Route::group(['prefix' => 'personal'], function () {
-        Route::get('/create', [PersonalController::class, 'create'])->name('personal.create');
-        Route::post('/store', [PersonalController::class, 'store'])->name('personal.store');
-        Route::get('/show/{id}', [PersonalController::class, 'show'])->name('personal.show');
-        Route::get('/', [PersonalController::class, 'index'])->name('personal.search');
-        Route::get('/{id}/edit', [PersonalController::class, 'edit'])->name('personal.edit');
-        Route::put('/{id}/update', [PersonalController::class, 'update'])->name('personal.update');
-        Route::delete('/{id}/delete', [PersonalController::class, 'destroy'])->name('personal.destroy');
-    });
+Route::group(['prefix' => 'personal'], function () {
+    Route::get('/create', [PersonalController::class, 'create'])->name('personal.create')->middleware('auth', 'admin');
+    Route::post('/store', [PersonalController::class, 'store'])->name('personal.store')->middleware('auth', 'admin');
+    Route::get('/show/{id}', [PersonalController::class, 'show'])->name('personal.show')->middleware('auth', 'admin');
+    Route::get('/', [PersonalController::class, 'index'])->name('personal.search')->middleware('auth', 'admin');
+    Route::get('/{id}/edit', [PersonalController::class, 'edit'])->name('personal.edit')->middleware('auth', 'admin');
+    Route::put('/{id}/update', [PersonalController::class, 'update'])->name('personal.update')->middleware('auth', 'admin');
+    Route::delete('/{id}/delete', [PersonalController::class, 'destroy'])->name('personal.destroy')->middleware('auth', 'admin');
+});
 
 
-Route::get('/panel', function () {
-    return view('admin.panel');
-})->name('panel');
+
 //Vistas para panel de administrador de clientes
 Route::get('/panel/piezas', [PiezaController::class, 'indexAdmin'])->name('piezas.adminIndex');
 Route::get('/panel/piezas/{id}', [PiezaController::class, 'adminShow'])->name('piezas.adminShow');
