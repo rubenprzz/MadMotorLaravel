@@ -30,6 +30,8 @@ Route::group(['prefix' => 'pedido'], function () {
     Route::get('/historial', [PedidoController::class, 'historial'])->name('pedido.historial');
     Route::get('/historial/{id}', [PedidoController::class, 'show'])->name('pedido.show');
     Route::get('/download/pedido/{id}', [PedidoController::class, 'download'])->name('pedido.download');
+    Route::get('/download/historial/', [PedidoController::class, 'downloadHistorial'])->name('pedido.historial.download');
+
 });
 Route::group(['prefix' => 'piezas'], function () {
     Route::get('/', [PiezaController::class, 'index'])->name('piezas.index');
@@ -71,19 +73,7 @@ Route::group(['prefix' => 'perfil'], function () {
         Route::post('/logout', [PersonalAuthController::class, 'logout'])->name('logout');
     });});*/
 
-<<<<<<< HEAD
-Route::group(['prefix' => 'personal'], function () {
-    Route::get('/create', [PersonalController::class, 'create'])->name('personal.create');
-    Route::post('/store', [PersonalController::class, 'store'])->name('personal.store');
-    Route::get('/show/{id}', [PersonalController::class, 'show'])->name('personal.show');
-    Route::get('/', [PersonalController::class, 'index'])->name('personal.search');
-    Route::get('/{id}/edit', [PersonalController::class, 'edit'])->name('personal.edit');
-    Route::put('/{id}/update', [PersonalController::class, 'update'])->name('personal.update');
 
-
-});
-
-=======
     Route::group(['prefix' => 'personal'], function () {
         Route::get('/create', [PersonalController::class, 'create'])->name('personal.create');
         Route::post('/store', [PersonalController::class, 'store'])->name('personal.store');
@@ -93,5 +83,4 @@ Route::group(['prefix' => 'personal'], function () {
         Route::put('/{id}/update', [PersonalController::class, 'update'])->name('personal.update');
         Route::delete('/{id}/delete', [PersonalController::class, 'destroy'])->name('personal.destroy');
     });
->>>>>>> fdcc7539d648bb49f1732db0058084d58becd62b
 

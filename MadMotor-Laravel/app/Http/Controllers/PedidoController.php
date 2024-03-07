@@ -79,6 +79,12 @@ class PedidoController extends Controller
         $pedidos = Pedido::where('idCliente', auth()->user()->id)->get();
         return view('pedido.historial')->with('pedidos', $pedidos);
     }
+    public function downloadHistorial(){
+        $pdf = App::make('dompdf.wrapper');
+        $pedidos = Pedido::where('idCliente', auth()->user()->id)->get();
+        $pdf = \PDF::loadView('pedido.pdfhistorial', compact('pedidos'));
+        return $pdf->download('historial.pdf');
+    }
 
     //generar pdf
     public function download($id){
