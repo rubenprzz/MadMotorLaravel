@@ -55,7 +55,7 @@ Route::group(['prefix' => 'perfil'], function () {
 
 });
 
-/*Route::prefix('personal')->name('personal.')->group(function () {
+Route::prefix('personal')->name('personal.')->group(function () {
 
     Route::middleware(['guest:personal'])->group(function () {
         Route::view('/login', 'personal.login')->name('login');
@@ -65,7 +65,7 @@ Route::group(['prefix' => 'perfil'], function () {
     Route::middleware(['auth:personal'])->group(function () {
         Route::view('/home', 'personal.home')->name('home');
         Route::post('/logout', [PersonalAuthController::class, 'logout'])->name('logout');
-    });});*/
+    });});
 
     Route::group(['prefix' => 'personal'], function () {
         Route::get('/create', [PersonalController::class, 'create'])->name('personal.create');
@@ -81,3 +81,9 @@ Route::group(['prefix' => 'perfil'], function () {
 Route::get('/panel', function () {
     return view('admin.panel');
 })->name('panel');
+//Vistas para panel de administrador de clientes
+Route::get('/panel/piezas', [PiezaController::class, 'indexAdmin'])->name('piezas.adminIndex');
+Route::get('/panel/piezas/{id}', [PiezaController::class, 'adminShow'])->name('piezas.adminShow');
+Route::get('/clientes', [ClientesController::class, 'index'])->name('cliente.index');
+Route::get('/clientes/{id}', [ClientesController::class, 'adminShow'])->name('cliente.show');
+Route::get('/clientes/{id}/edit', [ClientesController::class, 'adminEdit'])->name('cliente.adminEdit');
