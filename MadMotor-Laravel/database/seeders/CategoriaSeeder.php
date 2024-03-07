@@ -15,21 +15,81 @@ class CategoriaSeeder extends Seeder
     public function run(): void
     {
         DB::table('categorias')->insert([
-            ['nombre' => 'Clásicos'],
-            ['nombre' => 'Deportivos'],
-            ['nombre' => 'SUV'],
-            ['nombre' => 'Sedán'],
-            ['nombre' => 'Hatchback'],
-            ['nombre' => 'Pickup'],
-            ['nombre' => 'Familiar'],
-            ['nombre' => 'Van'],
-            ['nombre' => 'Convertible'],
-            ['nombre' => 'Coupé'],
-            ['nombre' => 'Eléctricos'],
-            ['nombre' => 'Híbridos'],
-            ['nombre' => 'Freno'],
-            ['nombre' => 'Filtros'],
-            ['nombre' => 'Bujias']
+            [
+                'nombre' => 'Clásicos',
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+            [
+                'nombre' => 'Deportivos',
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+            [
+                'nombre' => 'SUV',
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+            [
+                'nombre' => 'Sedán',
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+            [
+                'nombre' => 'Hatchback',
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+            [
+                'nombre' => 'Pickup',
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+            [
+                'nombre' => 'Familiar',
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+            [
+                'nombre' => 'Van',
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+            [
+                'nombre' => 'Convertible',
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+            [
+                'nombre' => 'Coupé',
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+            [
+                'nombre' => 'Eléctricos',
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+            [
+                'nombre' => 'Híbridos',
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+            [
+                'nombre' => 'Freno',
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+            [
+                'nombre' => 'Filtros',
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+            [
+                'nombre' => 'Bujias',
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
         ]);
     }
 }

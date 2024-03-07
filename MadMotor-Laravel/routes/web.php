@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\CarritoController;
+use App\Http\Controllers\CategoriaController;
 use App\Http\Controllers\ClientesController;
 use App\Http\Controllers\PedidoController;
 use App\Http\Controllers\PersonalController;
@@ -85,3 +86,14 @@ Route::get('/clientes', [ClientesController::class, 'index'])->name('cliente.ind
 Route::get('/clientes/{id}', [ClientesController::class, 'adminShow'])->name('cliente.show')->middleware('auth', 'admin');
 Route::get('/clientes/{id}/edit', [ClientesController::class, 'adminEdit'])->name('cliente.adminEdit')->middleware('auth', 'admin');
 
+
+Route::group(['prefix' => 'categorias'], function () {
+    Route::get('/', [CategoriaController::class, 'index'])->name('categorias.index');
+    Route::get('/create', [CategoriaController::class, 'create'])->name('categorias.create');
+    Route::post('/', [CategoriaController::class, 'store'])->name('categorias.store');
+    Route::get('/{id}', [CategoriaController::class, 'show'])->name('categorias.show');
+    Route::get('/{id}/edit', [CategoriaController::class, 'edit'])->name('categorias.edit');
+    Route::put('/{id}/update', [CategoriaController::class, 'update'])->name('categorias.update');
+    Route::delete('/{id}', [CategoriaController::class, 'destroy'])->name('categorias.destroy');
+
+});

@@ -52,4 +52,9 @@ class Categoria extends Model
     {
         return $this->hasMany(Pieza::class);
     }
+
+    public function scopeSearch($query, $search)
+    {
+        return $query->whereRaw('LOWER(nombre) LIKE ?', ["%" . strtolower($search) . "%"]);
+    }
 }
