@@ -87,7 +87,6 @@ class PiezaController extends Controller
             ], $this->messages());
 
             if ($validator->fails()) {
-                flash('Error al actualizar la pieza.')->error();
                 return redirect()->back()->withErrors($validator)->withInput();
             }
 
