@@ -35,7 +35,8 @@ El proyecto sigue la siguiente estructura de carpetas:
 #### Carpetas Principales
 
 # Estructura del Proyecto
-'''
+
+```plaintext
 Http
 │   ├── Controllers
 │   │   ├── Auth
@@ -86,8 +87,8 @@ Http
     ├── BroadcastServiceProvider.php
     ├── EventServiceProvider.php
     └── RouteServiceProvider.php
-'''
 
+```
 ## Bases de datos utilizadas
 
 - **PostgreSQL**: Utilizado para almacenar datos estructurados y relacionales relacionados con la aplicación y gestionar los pedidos.
