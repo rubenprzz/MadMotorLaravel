@@ -35,7 +35,7 @@ El proyecto sigue la siguiente estructura de carpetas:
 #### Carpetas Principales
 
 # Estructura del Proyecto
-
+'''
 Http
 │   ├── Controllers
 │   │   ├── Auth
@@ -86,7 +86,7 @@ Http
     ├── BroadcastServiceProvider.php
     ├── EventServiceProvider.php
     └── RouteServiceProvider.php
-
+'''
 
 ## Bases de datos utilizadas
 
